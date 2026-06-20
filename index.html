@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: dark;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Think Tank CoWork | Bel Air, Maryland</title>
+  <meta name="description" content="Harford County's first hi-tech coworking community. Premium offices, dedicated desks, and flexible workspaces in Bel Air, MD.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg:            #050810;
+      --bg-raised:     #090d1a;
+      --bg-card:       #0f1629;
+      --surface:       rgba(255,255,255,0.04);
+      --surface-hover: rgba(255,255,255,0.07);
+      --surface-hi:    rgba(255,255,255,0.10);
+      --txt:           #eef2ff;
+      --txt-2:         #94a3b8;
+      --txt-3:         #4b5573;
+      --blue:          #3b82f6;
+      --blue-dim:      rgba(59,130,246,0.18);
+      --blue-border:   rgba(59,130,246,0.32);
+      --amber:         #f59e0b;
+      --amber-dim:     rgba(245,158,11,0.14);
+      --amber-border:  rgba(245,158,11,0.32);
+      --purple:        #818cf8;
+      --green:         #22c55e;
+      --border:        rgba(255,255,255,0.08);
+      --border-2:      rgba(255,255,255,0.13);
+      --shadow-md:     0 8px 32px rgba(0,0,0,0.5);
+      --shadow-blue:   0 8px 32px rgba(59,130,246,0.22);
+      --r-sm:  8px;
+      --r-md:  12px;
+      --r-lg:  16px;
+      --r-xl:  24px;
+      --r-2xl: 32px;
+      --r-pill: 9999px;
+      --ease: cubic-bezier(0.16,1,0.3,1);
+      --nav-h: 72px;
+      --max-w: 1280px;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--bg);
+      color: var(--txt);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+    ul { list-style: none; }
+    input, textarea, select { font-family: var(--font-body); }
+    img { max-width: 100%; display: block; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100px; left: 16px; z-index: 9999;
+      padding: 10px 20px; background: var(--blue); color: #fff;
+      border-radius: var(--r-sm); font-weight: 600; font-size: 14px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 16px; }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      width: 100%; max-width: var(--max-w);
+      margin: 0 auto; padding: 0 24px;
+    }
+    @media (max-width: 768px) { .wrap { padding: 0 16px; } }
+
+    /* ── AMBIENT BLOBS ── */
+    .blobs {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); animation: floatBlob 22s ease-in-out infinite;
+    }
+    .b1 { width: 560px; height: 560px; background: var(--blue); opacity: 0.10; top: -200px; left: -150px; animation-duration: 28s; }
+    .b2 { width: 380px; height: 380px; background: var(--amber); opacity: 0.07; top: 25%; right: -100px; animation-delay: -6s; animation-duration: 22s; }
+    .b3 { width: 460px; height: 460px; background: var(--purple); opacity: 0.07; bottom: 5%; left: 28%; animation-delay: -12s; animation-duration: 32s; }
+    @keyframes floatBlob {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(36px,-28px) scale(1.06); }
+      66%      { transform: translate(-26px,18px) scale(0.94); }
+    }
+
+    /* ── GRID BG ── */
+    .grid-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.035) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black, transparent);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black, transparent);
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .t-disp {
+      font-family: var(--font-head); font-weight: 700;
+      font-size: clamp(48px,6.5vw,80px); line-height: 1.04; letter-spacing: -0.025em;
+    }
+    .t-h2 {
+      font-family: var(--font-head); font-weight: 600;
+      font-size: clamp(32px,4vw,48px); line-height: 1.12; letter-spacing: -0.018em;
+    }
+    .t-h3 {
+      font-family: var(--font-head); font-weight: 600;
+      font-size: clamp(20px,2.5vw,24px); line-height: 1.25; letter-spacing: -0.01em;
+    }
+    .t-lg { font-size: clamp(17px,2.2vw,19px); line-height: 1.65; }
+    .t-sm { font-size: 14px; }
+    .t-xs { font-size: 12px; }
+
+    .grad-text {
+      background: linear-gradient(125deg, #fff 10%, var(--blue) 55%, var(--purple) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .amber-text { color: var(--amber); }
+    .blue-text  { color: var(--blue); }
+    .muted      { color: var(--txt-2); }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 13px; border-radius: var(--r-pill);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .badge-blue   { background: var(--blue-dim);  color: var(--blue);  border: 1px solid var(--blue-border); }
+    .badge-amber  { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; font-size: 14px; font-weight: 600;
+      border-radius: var(--r-sm); transition: all 200ms var(--ease);
+      cursor: pointer; white-space: nowrap; font-family: var(--font-body);
+    }
+    .btn-primary {
+      background: var(--blue); color: #fff; box-shadow: var(--shadow-blue);
+    }
+    .btn-primary:hover  { background: #2563eb; transform: translateY(-2px); box-shadow: 0 14px 40px rgba(59,130,246,0.38); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-ghost {
+      background: var(--surface); color: var(--txt); border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--surface-hover); border-color: var(--border-2); transform: translateY(-2px); }
+    .btn-lg { padding: 15px 32px; font-size: 16px; border-radius: var(--r-md); }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── GLASS CARD ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-lg); transition: background 200ms var(--ease), border-color 200ms var(--ease), transform 250ms var(--ease), box-shadow 250ms var(--ease);
+    }
+    .card:hover { background: var(--surface-hover); border-color: var(--border-2); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .card-no-hover:hover { transform: none; box-shadow: none; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 420ms var(--ease), transform 420ms var(--ease); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 80ms; }
+    .d2 { transition-delay: 160ms; }
+    .d3 { transition-delay: 240ms; }
+    .d4 { transition-delay: 320ms; }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+    /* ── SECTION HEADER ── */
+    .s-head { text-align: center; max-width: 640px; margin: 0 auto 72px; }
+    .s-head .badge { margin-bottom: 16px; }
+    .s-head h2 { margin-bottom: 16px; }
+    .s-head p { color: var(--txt-2); }
+
+    /* ════════════════════════════════
+       NAV
+       ════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(5,8,16,0.55);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 250ms, border-color 250ms;
+    }
+    .nav.scrolled { background: rgba(5,8,16,0.88); border-color: var(--border-2); }
+    .nav .wrap { height: 100%; }
+    .nav-in { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: var(--r-sm); flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-text {
+      font-family: var(--font-head); font-weight: 700; font-size: 18px; letter-spacing: -0.01em;
+    }
+    .logo-text span { color: var(--amber); }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-link { font-size: 14px; font-weight: 500; color: var(--txt-2); transition: color 150ms; }
+    .nav-link:hover { color: var(--txt); }
+    .nav-cta { display: flex; align-items: center; gap: 10px; }
+    .nav-phone { font-size: 13px; font-weight: 600; color: var(--txt-2); display: flex; align-items: center; gap: 6px; transition: color 150ms; }
+    .nav-phone:hover { color: var(--txt); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--txt); border-radius: 2px; transition: transform 250ms var(--ease), opacity 250ms; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mob-menu {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: rgba(9,13,26,0.97); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); padding: 20px 24px 28px;
+      flex-direction: column; gap: 4px; z-index: 99;
+    }
+    .mob-menu.open { display: flex; }
+    .mob-menu .nav-link { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 16px; }
+    .mob-menu .btn { margin-top: 12px; }
+
+    @media (max-width: 820px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ════════════════════════════════
+       HERO
+       ════════════════════════════════ */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100dvh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 80px) 24px 96px;
+      overflow: hidden;
+    }
+    /* Photo slide stack */
+    .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    /* Outer div — opacity only, no transform */
+    .hero-slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 2s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+    /* Inner div — Ken Burns transform only, never interrupted by opacity changes */
+    .hero-slide-inner {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      will-change: transform;
+    }
+    @keyframes kb0 {
+      from { transform: scale(1.0) translate(0, 0); }
+      to   { transform: scale(1.07) translate(-1.2%, -0.8%); }
+    }
+    @keyframes kb1 {
+      from { transform: scale(1.06) translate(0.8%, 0.4%); }
+      to   { transform: scale(1.0) translate(-0.6%, -0.4%); }
+    }
+    @keyframes kb2 {
+      from { transform: scale(1.0) translate(-0.8%, 0.5%); }
+      to   { transform: scale(1.07) translate(0.6%, -0.8%); }
+    }
+    /* Dark cinematic gradient over photos */
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 48%, rgba(5,8,16,0.45) 0%, transparent 100%),
+        linear-gradient(180deg, rgba(5,8,16,0.62) 0%, rgba(5,8,16,0.50) 38%, rgba(5,8,16,0.85) 100%);
+    }
+    /* Grid texture sits above overlay */
+    .grid-bg { z-index: 2; }
+    /* Hero text content above everything */
+    .hero-body {
+      position: relative; z-index: 3;
+      display: flex; flex-direction: column; align-items: center; width: 100%;
+    }
+    .hero-body .badge { margin-bottom: 24px; }
+    .hero-body h1 {
+      max-width: 880px; margin: 0 auto 24px;
+      text-shadow: 0 2px 32px rgba(0,0,0,0.75), 0 1px 6px rgba(0,0,0,0.9);
+    }
+    .hero-body h1 .grad-text {
+      background: none;
+      -webkit-text-fill-color: var(--blue);
+    }
+    .hero-body .sub {
+      max-width: 580px; margin: 0 auto 48px; color: rgba(238,242,255,0.88);
+      text-shadow: 0 1px 16px rgba(0,0,0,0.8);
+    }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(255,255,255,0.45); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      animation: scrollBounce 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ════════════════════════════════
+       STATS BAR
+       ════════════════════════════════ */
+    .stats-bar {
+      position: relative; z-index: 1;
+      background: rgba(9,13,26,0.6);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat {
+      padding: 28px 20px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-head); font-size: clamp(28px,4vw,40px);
+      font-weight: 700; color: var(--blue); line-height: 1; letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .stat-lbl { font-size: 13px; color: var(--txt-2); font-weight: 500; }
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid var(--border); }
+      .stat:nth-child(4) { border-right: none; }
+    }
+
+    /* ════════════════════════════════
+       FEATURES
+       ════════════════════════════════ */
+    .features { padding: 100px 0; position: relative; z-index: 1; }
+    .feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .feat-card { padding: 36px 32px; }
+    .feat-icon {
+      width: 52px; height: 52px; border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .ic-blue   { background: var(--blue-dim);  color: var(--blue); }
+    .ic-amber  { background: var(--amber-dim); color: var(--amber); }
+    .ic-purple { background: rgba(129,140,248,0.14); color: var(--purple); }
+    .ic-green  { background: rgba(34,197,94,0.12); color: var(--green); }
+    .feat-card h3 { margin-bottom: 12px; }
+    .feat-card p { color: var(--txt-2); font-size: 15px; line-height: 1.7; }
+    @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr; gap: 12px; } }
+
+    /* ════════════════════════════════
+       AMENITIES
+       ════════════════════════════════ */
+    .amenities { padding: 100px 0; position: relative; z-index: 1; }
+    .amen-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .amen-card { display: flex; align-items: flex-start; gap: 16px; padding: 22px 20px; }
+    .amen-icon {
+      width: 38px; height: 38px; border-radius: var(--r-sm); flex-shrink: 0;
+      background: var(--blue-dim); color: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .amen-card h4 { font-family: var(--font-head); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .amen-card p  { font-size: 13px; color: var(--txt-2); line-height: 1.5; }
+    @media (max-width: 900px) { .amen-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px) { .amen-grid { grid-template-columns: 1fr; } }
+
+    /* ════════════════════════════════
+       MEMBERSHIP
+       ════════════════════════════════ */
+    .membership { padding: 100px 0; position: relative; z-index: 1; }
+    .mem-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .mem-card { padding: 32px 24px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .mem-card.featured { border-color: var(--blue-border); background: rgba(59,130,246,0.06); }
+    .mem-card.featured::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+    }
+    .pop-tag {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--blue); background: var(--blue-dim); border: 1px solid var(--blue-border);
+      padding: 3px 10px; border-radius: var(--r-pill);
+    }
+    .mem-icon {
+      width: 44px; height: 44px; border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+      background: var(--surface-hi);
+    }
+    .mem-card h3 { font-family: var(--font-head); font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+    .mem-card > p { font-size: 13px; color: var(--txt-2); line-height: 1.65; margin-bottom: 20px; flex: 1; }
+    .perks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .perk { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--txt-2); }
+    .perk svg { color: var(--green); flex-shrink: 0; }
+    @media (max-width: 1024px) { .mem-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px)  { .mem-grid { grid-template-columns: 1fr; } }
+
+    /* ════════════════════════════════
+       ADD-ONS
+       ════════════════════════════════ */
+    .addons { padding: 0 0 100px; position: relative; z-index: 1; }
+    .addons-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-2xl); padding: 56px;
+    }
+    .addons-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 32px; margin-bottom: 40px;
+    }
+    .addons-top h3 { margin-top: 12px; }
+    .addons-top p  { font-size: 15px; color: var(--txt-2); max-width: 380px; line-height: 1.65; }
+    .addon-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .addon-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: 22px;
+    }
+    .addon-price {
+      font-family: var(--font-head); font-size: 26px; font-weight: 700;
+      color: var(--amber); margin-bottom: 4px;
+    }
+    .addon-price span { font-size: 13px; font-weight: 400; color: var(--txt-2); }
+    .addon-name { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+    .addon-desc { font-size: 13px; color: var(--txt-2); line-height: 1.55; }
+    @media (max-width: 900px) {
+      .addons-box { padding: 32px 24px; }
+      .addons-top { flex-direction: column; }
+      .addon-list { grid-template-columns: 1fr; }
+    }
+
+    /* ════════════════════════════════
+       LOCATION
+       ════════════════════════════════ */
+    .location { padding: 100px 0; position: relative; z-index: 1; }
+    .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .loc-content h2 { margin-bottom: 20px; }
+    .loc-content > p { color: var(--txt-2); margin-bottom: 36px; }
+    .loc-details { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+    .loc-detail { display: flex; align-items: flex-start; gap: 12px; }
+    .loc-ic {
+      width: 34px; height: 34px; flex-shrink: 0; border-radius: var(--r-sm);
+      background: var(--blue-dim); color: var(--blue);
+      display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    }
+    .loc-detail strong { display: block; font-weight: 600; font-size: 15px; }
+    .loc-detail span { font-size: 13px; color: var(--txt-2); }
+    .prox-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .prox-tag {
+      padding: 6px 14px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-pill); font-size: 12px; color: var(--txt-2); font-weight: 500;
+    }
+    .map-frame {
+      border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border);
+      aspect-ratio: 4/3; position: sticky; top: calc(var(--nav-h) + 24px);
+    }
+    .map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+    @media (max-width: 900px) {
+      .loc-grid { grid-template-columns: 1fr; gap: 48px; }
+      .map-frame { aspect-ratio: 16/9; position: static; }
+    }
+
+    /* ════════════════════════════════
+       CONTACT
+       ════════════════════════════════ */
+    .contact { padding: 100px 0; position: relative; z-index: 1; }
+    .con-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 80px; align-items: start; }
+    .con-info h2 { margin-bottom: 16px; }
+    .con-info > p { color: var(--txt-2); margin-bottom: 36px; }
+    .con-links { display: flex; flex-direction: column; gap: 16px; }
+    .con-link {
+      display: flex; align-items: center; gap: 12px;
+      color: var(--txt-2); font-size: 15px; transition: color 150ms;
+    }
+    .con-link:hover { color: var(--txt); }
+    .con-ic {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--surface-hi); border: 1px solid var(--border);
+      border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center;
+    }
+    .con-link strong { display: block; color: var(--txt); font-weight: 500; font-size: 15px; }
+    .con-link small  { font-size: 12px; color: var(--txt-3); }
+    .socials { display: flex; gap: 10px; margin-top: 28px; }
+    .social-btn {
+      width: 42px; height: 42px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--txt-2); transition: all 200ms var(--ease);
+    }
+    .social-btn:hover { background: var(--surface-hover); color: var(--txt); border-color: var(--border-2); }
+
+    /* Form */
+    .form-wrap { padding: 36px; }
+    .form-title { font-family: var(--font-head); font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+    .form-sub   { font-size: 13px; color: var(--txt-2); margin-bottom: 28px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .field label { font-size: 13px; font-weight: 500; color: var(--txt-2); }
+    .field label .req { color: var(--amber); margin-left: 2px; }
+    .inp {
+      width: 100%; padding: 11px 14px;
+      background: var(--surface-hi); border: 1px solid var(--border); border-radius: var(--r-sm);
+      color: var(--txt); font-size: 15px; font-family: var(--font-body);
+      transition: border-color 150ms, box-shadow 150ms, background 150ms;
+      -webkit-appearance: none;
+    }
+    .inp::placeholder { color: var(--txt-3); }
+    .inp:focus {
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.18); background: var(--surface-hover);
+    }
+    textarea.inp { resize: vertical; min-height: 110px; line-height: 1.6; }
+    select.inp {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 34px; cursor: pointer;
+    }
+    select.inp option { background: var(--bg-card); color: var(--txt); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spin-icon { animation: spin 0.9s linear infinite; display: inline-block; }
+
+    .success-state {
+      display: none; flex-direction: column; align-items: center;
+      text-align: center; padding: 56px 32px; gap: 14px;
+    }
+    .success-state.show { display: flex; }
+    .success-ic {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(34,197,94,0.14); color: var(--green);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success-state h3 { font-family: var(--font-head); font-size: 22px; font-weight: 600; }
+    .success-state p  { color: var(--txt-2); font-size: 15px; max-width: 320px; }
+
+    @media (max-width: 900px) { .con-grid { grid-template-columns: 1fr; gap: 48px; } }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } .form-wrap { padding: 24px; } }
+
+    /* ════════════════════════════════
+       CTA STRIP
+       ════════════════════════════════ */
+    .cta-strip { padding: 0 0 100px; position: relative; z-index: 1; }
+    .cta-box {
+      background: linear-gradient(135deg, rgba(59,130,246,0.11), rgba(129,140,248,0.07));
+      border: 1px solid var(--blue-border); border-radius: var(--r-2xl);
+      padding: 72px 48px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 280px;
+      background: radial-gradient(ellipse, rgba(59,130,246,0.14), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-box h2 { margin-bottom: 14px; }
+    .cta-box p  { color: var(--txt-2); margin-bottom: 36px; }
+    .cta-btns   { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    @media (max-width: 600px) { .cta-box { padding: 48px 24px; } }
+
+    /* ════════════════════════════════
+       FOOTER
+       ════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--border); padding: 60px 0 36px;
+      position: relative; z-index: 1; background: rgba(9,13,26,0.55);
+    }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-brand p { font-size: 14px; color: var(--txt-2); line-height: 1.65; margin: 14px 0 20px; }
+    .footer-col-lbl {
+      font-family: var(--font-head); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase; color: var(--txt-3); margin-bottom: 16px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-link { font-size: 14px; color: var(--txt-2); transition: color 150ms; }
+    .footer-link:hover { color: var(--txt); }
+    .footer-bot {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bot p { font-size: 12px; color: var(--txt-3); }
+    .footer-bot-links { display: flex; gap: 24px; }
+    @media (max-width: 820px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bot { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- Ambient blobs -->
+<div class="blobs" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     NAV
+     ════════════════════════════════════════ -->
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <div class="wrap">
+    <div class="nav-in">
+      <a class="nav-logo" href="#" aria-label="Think Tank CoWork home">
+        <div class="logo-mark" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <span class="logo-text">Think <span>Tank</span></span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#amenities" class="nav-link">Amenities</a></li>
+        <li><a href="#membership" class="nav-link">Membership</a></li>
+        <li><a href="#location" class="nav-link">Location</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="tel:4108444400" class="nav-phone">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          410-844-4400
+        </a>
+        <a href="#contact" class="btn btn-primary">Get Started</a>
+      </div>
+
+      <button class="hamburger" id="ham" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mob-menu" id="mobMenu" aria-hidden="true">
+  <a href="#amenities" class="nav-link">Amenities</a>
+  <a href="#membership" class="nav-link">Membership</a>
+  <a href="#location" class="nav-link">Location</a>
+  <a href="#contact" class="nav-link">Contact</a>
+  <a href="tel:4108444400" class="nav-link">410-844-4400</a>
+  <a href="#contact" class="btn btn-primary btn-full">Get Started</a>
+</div>
+
+<!-- ════════════════════════════════════════
+     MAIN
+     ════════════════════════════════════════ -->
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-h">
+  <!-- Photo layers -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-slide" data-kb="0"><div class="hero-slide-inner" style="background-image:url('images/office-1.jpg')"></div></div>
+    <div class="hero-slide" data-kb="1"><div class="hero-slide-inner" style="background-image:url('images/office-2.jpg')"></div></div>
+    <div class="hero-slide" data-kb="2"><div class="hero-slide-inner" style="background-image:url('images/office-3.jpg')"></div></div>
+    <div class="hero-slide" data-kb="0"><div class="hero-slide-inner" style="background-image:url('images/office-4.jpg')"></div></div>
+    <div class="hero-slide" data-kb="1"><div class="hero-slide-inner" style="background-image:url('images/office-5.jpg')"></div></div>
+    <div class="hero-slide" data-kb="2"><div class="hero-slide-inner" style="background-image:url('images/office-6.jpg')"></div></div>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div class="hero-body">
+    <span class="badge badge-amber reveal">
+      <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true"><circle cx="4" cy="4" r="4"/></svg>
+      Harford County's #1 CoWork Space
+    </span>
+
+    <h1 class="t-disp reveal d1" id="hero-h">
+      Where <span class="grad-text">Ideas</span> Meet<br>Opportunity.
+    </h1>
+
+    <p class="t-lg sub reveal d2">
+      Harford County's first hi-tech coworking community. Premium workspaces, real community, and zero long-term commitments in the heart of Bel Air, MD.
+    </p>
+
+    <div class="hero-btns reveal d3">
+      <a href="#contact" class="btn btn-primary btn-lg">
+        Book Your Space
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#membership" class="btn btn-ghost btn-lg">View Plans</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar" role="region" aria-label="Key facts">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat reveal"><div class="stat-num">No.&nbsp;1</div><div class="stat-lbl">In Harford County</div></div>
+      <div class="stat reveal d1"><div class="stat-num">4+</div><div class="stat-lbl">Workspace Plans</div></div>
+      <div class="stat reveal d2"><div class="stat-num">5★</div><div class="stat-lbl">Member Experience</div></div>
+      <div class="stat reveal d3"><div class="stat-num">I-95</div><div class="stat-lbl">Minutes Away</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features" aria-labelledby="feat-h">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="badge badge-blue">Why Think Tank</span>
+      <h2 class="t-h2" id="feat-h">Built for the way you work today</h2>
+      <p class="t-lg muted">Stop settling for coffee shops. Think Tank gives you the professional environment and community to do your best work.</p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="card feat-card reveal">
+        <div class="feat-icon ic-blue" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3 class="t-h3">Premium Tech Infrastructure</h3>
+        <p>Enterprise-grade high-speed WiFi, printing, copying, scanning, and faxing. Every tool you need to run your business at full speed, day one.</p>
+      </div>
+
+      <div class="card feat-card reveal d1">
+        <div class="feat-icon ic-amber" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="t-h3">Vibrant Professional Community</h3>
+        <p>Connect with local business leaders, entrepreneurs, and remote pros. Networking events, community gatherings, and real collaboration opportunities.</p>
+      </div>
+
+      <div class="card feat-card reveal d2">
+        <div class="feat-icon ic-purple" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="t-h3">Zero Overhead. Full Flexibility.</h3>
+        <p>No long-term leases, no utility bills, no maintenance headaches. Upgrade, downgrade, or switch plans as your business evolves. On your schedule.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities" aria-labelledby="amen-h">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="badge badge-blue">Amenities</span>
+      <h2 class="t-h2" id="amen-h">Everything included. No surprises.</h2>
+      <p class="t-lg muted">Every membership comes fully loaded. No hidden fees, no surprises. Just everything you need to show up and get to work.</p>
+    </div>
+
+    <div class="amen-grid">
+      <div class="card amen-card reveal">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+        <div><h4>High-Speed WiFi</h4><p>Enterprise-grade internet. Slow connections cost business and we know it.</p></div>
+      </div>
+
+      <div class="card amen-card reveal d1">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+        <div><h4>Print / Copy / Scan / Fax</h4><p>Full business machine center at your fingertips, always.</p></div>
+      </div>
+
+      <div class="card amen-card reveal d2">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <div><h4>Café: Coffee, Snacks &amp; Beer</h4><p>Fuel your focus. Complimentary coffee, snacks, and yes, beer too.</p></div>
+      </div>
+
+      <div class="card amen-card reveal">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="23 11 17 17 14 14"/></svg></div>
+        <div><h4>Conference Room Access</h4><p>Impress clients in a polished meeting space. Member discounts on booking.</p></div>
+      </div>
+
+      <div class="card amen-card reveal d1">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div><h4>Free Dedicated Parking</h4><p>Pull up and park for free. No meters, no garages, no hassle.</p></div>
+      </div>
+
+      <div class="card amen-card reveal d2">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><h4>Mail &amp; Address Service</h4><p>Use 16 Bel Air South Pkwy as your official business address.</p></div>
+      </div>
+
+      <div class="card amen-card reveal">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
+        <div><h4>Networking Events</h4><p>Exclusive invitations to member mixers and community gatherings.</p></div>
+      </div>
+
+      <div class="card amen-card reveal d1">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
+        <div><h4>Event Space Access</h4><p>Host workshops, team meetings, or community events in-house.</p></div>
+      </div>
+
+      <div class="card amen-card reveal d2">
+        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div><h4>Local Partner Discounts</h4><p>Exclusive deals with Bel Air area businesses. Perks that go beyond these walls.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MEMBERSHIP -->
+<section class="membership" id="membership" aria-labelledby="mem-h">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="badge badge-amber">Membership</span>
+      <h2 class="t-h2" id="mem-h">Find your perfect space</h2>
+      <p class="t-lg muted">Whether you need a private office or occasional desk time, there's a plan built for your workflow. Contact us for current pricing.</p>
+    </div>
+
+    <div class="mem-grid">
+      <!-- Dedicated Office -->
+      <div class="card mem-card featured reveal">
+        <span class="pop-tag">Most Popular</span>
+        <div class="mem-icon ic-blue" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <h3>Dedicated Office</h3>
+        <p>A fully private, lockable office that's yours alone. Perfect for teams, client-facing businesses, or anyone who demands total privacy.</p>
+        <ul class="perks" role="list">
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Private lockable office</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>All amenities included</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Priority conference room access</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Extended access hours</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Inquire Now</a>
+      </div>
+
+      <!-- Dedicated Workspace -->
+      <div class="card mem-card reveal d1">
+        <div class="mem-icon ic-purple" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h3>Dedicated Workspace</h3>
+        <p>Your own reserved desk in our open workspace. Same spot every time. Set it up exactly how you like and leave your gear.</p>
+        <ul class="perks" role="list">
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Reserved personal desk</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>All amenities included</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Conference room discounts</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Extended access hours</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Inquire Now</a>
+      </div>
+
+      <!-- Unshared Desk -->
+      <div class="card mem-card reveal d2">
+        <div class="mem-icon ic-amber" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Unshared Desk</h3>
+        <p>A single-occupancy desk in a shared environment. Your desk won't be shared with anyone. A personal workspace during standard business hours.</p>
+        <ul class="perks" role="list">
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Solo desk, no sharing</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Core amenities included</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Community access</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Business hours access</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Inquire Now</a>
+      </div>
+
+      <!-- Part-Time Desk -->
+      <div class="card mem-card reveal d3">
+        <div class="mem-icon ic-green" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Part-Time Desk</h3>
+        <p>Hot-desk access M–F during standard business hours. Perfect for those who need a professional home base without a full-time commitment.</p>
+        <ul class="perks" role="list">
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Flexible hot-desking</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Core amenities included</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Community access</li>
+          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Mon–Fri, 9am–5pm</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Inquire Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<section class="addons" aria-labelledby="addon-h">
+  <div class="wrap">
+    <div class="addons-box reveal card card-no-hover">
+      <div class="addons-top">
+        <div>
+          <span class="badge badge-amber" style="margin-bottom:12px;">Add-On Services</span>
+          <h3 class="t-h3" id="addon-h">Supercharge your membership</h3>
+        </div>
+        <p>Bolt on exactly what your business needs. No bundles, no fluff. Just the services that matter.</p>
+      </div>
+      <div class="addon-list">
+        <div class="addon-item">
+          <div class="addon-price">$50–$69<span>/mo</span></div>
+          <div class="addon-name">Mail &amp; Address Service</div>
+          <div class="addon-desc">Use 16 Bel Air South Parkway as your official business address. Mail handling included.</div>
+        </div>
+        <div class="addon-item">
+          <div class="addon-price">$99<span>/mo</span></div>
+          <div class="addon-name">Reception / Live Answering</div>
+          <div class="addon-desc">Professional live answering for your business calls. Never miss an important inquiry.</div>
+        </div>
+        <div class="addon-item">
+          <div class="addon-price">$50+<span>/hr</span></div>
+          <div class="addon-name">Conference Room Rental</div>
+          <div class="addon-desc">Fully equipped conference room by the hour. Perfect for client meetings and team sessions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LOCATION -->
+<section class="location" id="location" aria-labelledby="loc-h">
+  <div class="wrap">
+    <div class="loc-grid">
+      <div class="loc-content reveal">
+        <span class="badge badge-blue" style="margin-bottom:20px;">Location</span>
+        <h2 class="t-h2" id="loc-h">Strategically positioned in Bel Air</h2>
+        <p class="t-lg muted">Situated in the heart of Harford County, minutes from Aberdeen Proving Ground, I-95, and downtown Bel Air.</p>
+
+        <div class="loc-details">
+          <div class="loc-detail">
+            <div class="loc-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><strong>16 Bel Air South Parkway</strong><span>Bel Air, Maryland 21015</span></div>
+          </div>
+          <div class="loc-detail">
+            <div class="loc-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div><strong>410-844-4400</strong><span>Give us a call anytime</span></div>
+          </div>
+          <div class="loc-detail">
+            <div class="loc-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><strong>jane@thinktankcowork.com</strong><span>Typical response within 24 hours</span></div>
+          </div>
+        </div>
+
+        <p class="t-xs" style="color:var(--txt-3);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-bottom:12px;">Nearby</p>
+        <div class="prox-tags">
+          <span class="prox-tag">Aberdeen Proving Ground</span>
+          <span class="prox-tag">Downtown Bel Air</span>
+          <span class="prox-tag">I-95 Corridor</span>
+          <span class="prox-tag">Harford County</span>
+          <span class="prox-tag">Route 1</span>
+        </div>
+
+        <a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Get Directions
+        </a>
+      </div>
+
+      <div class="map-frame reveal d2">
+        <iframe
+          title="Think Tank CoWork on Google Maps"
+          src="https://www.google.com/maps?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015&output=embed"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" aria-labelledby="con-h">
+  <div class="wrap">
+    <div class="con-grid">
+      <div class="con-info reveal">
+        <span class="badge badge-blue" style="margin-bottom:20px;">Get In Touch</span>
+        <h2 class="t-h2" id="con-h">Ready to make<br>your move?</h2>
+        <p class="t-lg muted">Whether you have questions or you're ready to sign up, reach out and we'll find the perfect space for you.</p>
+
+        <div class="con-links">
+          <a href="tel:4108444400" class="con-link">
+            <div class="con-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div><strong>410-844-4400</strong><small>Mon–Fri, 9am–5pm</small></div>
+          </a>
+          <a href="mailto:jane@thinktankcowork.com" class="con-link">
+            <div class="con-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><strong>jane@thinktankcowork.com</strong><small>We respond within 24 hours</small></div>
+          </a>
+          <a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer" class="con-link">
+            <div class="con-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><strong>16 Bel Air South Parkway</strong><small>Bel Air, Maryland 21015</small></div>
+          </a>
+        </div>
+
+        <div class="socials" aria-label="Social media">
+          <a href="https://www.facebook.com/ThinkTankCoWork" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/think-tank-cowork-b017101b1" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="card form-wrap reveal d1">
+        <div id="formBody">
+          <div class="form-title">Send an Inquiry</div>
+          <div class="form-sub">Fill this out and we'll get back to you within one business day.</div>
+
+          <form id="theForm" novalidate aria-label="Inquiry form">
+            <div class="form-row">
+              <div class="field">
+                <label for="fName">First Name <span class="req" aria-hidden="true">*</span></label>
+                <input class="inp" type="text" id="fName" name="firstName" placeholder="Jane" required autocomplete="given-name" aria-required="true">
+              </div>
+              <div class="field">
+                <label for="lName">Last Name <span class="req" aria-hidden="true">*</span></label>
+                <input class="inp" type="text" id="lName" name="lastName" placeholder="Smith" required autocomplete="family-name" aria-required="true">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="fEmail">Email <span class="req" aria-hidden="true">*</span></label>
+              <input class="inp" type="email" id="fEmail" name="email" placeholder="jane@company.com" required autocomplete="email" aria-required="true">
+            </div>
+
+            <div class="field">
+              <label for="fPhone">Phone</label>
+              <input class="inp" type="tel" id="fPhone" name="phone" placeholder="(410) 555-0123" autocomplete="tel">
+            </div>
+
+            <div class="field">
+              <label for="fPlan">Interested In <span class="req" aria-hidden="true">*</span></label>
+              <select class="inp" id="fPlan" name="plan" required aria-required="true">
+                <option value="" disabled selected>Select a membership type</option>
+                <option value="dedicated-office">Dedicated Office</option>
+                <option value="dedicated-workspace">Dedicated Workspace</option>
+                <option value="unshared-desk">Unshared Desk</option>
+                <option value="part-time-desk">Part-Time Desk</option>
+                <option value="conference-room">Conference Room Rental</option>
+                <option value="mail-service">Mail &amp; Address Service</option>
+                <option value="undecided">Not Sure Yet, Help Me Decide</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="fMsg">Message</label>
+              <textarea class="inp" id="fMsg" name="message" rows="4" placeholder="Tell us a bit about yourself and what you're looking for…"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+              <span id="btnLabel">Send Inquiry</span>
+              <svg id="btnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <div class="success-state" id="successState" role="alert" aria-live="polite" tabindex="-1">
+          <div class="success-ic" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Inquiry Sent!</h3>
+          <p>Thanks for reaching out. We'll be in touch within one business day at the email you provided.</p>
+          <a href="mailto:jane@thinktankcowork.com" class="btn btn-ghost" style="margin-top:4px;">Or email us directly</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip" aria-labelledby="cta-h">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <span class="badge badge-blue" style="margin-bottom:20px;">Start Today</span>
+      <h2 class="t-h2" id="cta-h">Your office is waiting.</h2>
+      <p class="t-lg muted">Join Harford County's most forward-thinking professional community.<br>Flexible plans, zero long-term commitments, all the amenities.</p>
+      <div class="cta-btns">
+        <a href="#contact" class="btn btn-primary btn-lg">Reserve Your Space</a>
+        <a href="tel:4108444400" class="btn btn-ghost btn-lg">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#" aria-label="Think Tank CoWork home">
+          <div class="logo-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="logo-text">Think <span>Tank</span></span>
+        </a>
+        <p>Harford County's first hi-tech coworking community. Professional workspaces for the modern professional in the heart of Bel Air, Maryland.</p>
+        <div class="socials" aria-label="Social media">
+          <a href="https://www.facebook.com/ThinkTankCoWork" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="https://www.linkedin.com/in/think-tank-cowork-b017101b1" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-lbl">Memberships</div>
+        <ul class="footer-links" role="list">
+          <li><a href="#membership" class="footer-link">Dedicated Office</a></li>
+          <li><a href="#membership" class="footer-link">Dedicated Workspace</a></li>
+          <li><a href="#membership" class="footer-link">Unshared Desk</a></li>
+          <li><a href="#membership" class="footer-link">Part-Time Desk</a></li>
+          <li><a href="#contact" class="footer-link">Conference Rooms</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-lbl">Contact</div>
+        <ul class="footer-links" role="list">
+          <li><a href="tel:4108444400" class="footer-link">410-844-4400</a></li>
+          <li><a href="mailto:jane@thinktankcowork.com" class="footer-link">jane@thinktankcowork.com</a></li>
+          <li><a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer" class="footer-link">16 Bel Air South Pkwy<br>Bel Air, MD 21015</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bot">
+      <p>&copy; 2025 Think Tank CoWork. All rights reserved.</p>
+      <div class="footer-bot-links">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 48);
+  }, { passive: true });
+
+  // Mobile menu
+  const ham = document.getElementById('ham');
+  const mob = document.getElementById('mobMenu');
+  ham.addEventListener('click', () => {
+    const open = mob.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+    mob.setAttribute('aria-hidden', !open);
+  });
+  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mob.classList.remove('open');
+    ham.classList.remove('open');
+    ham.setAttribute('aria-expanded', 'false');
+    mob.setAttribute('aria-hidden', 'true');
+  }));
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Ken Burns hero slideshow
+  const slides = document.querySelectorAll('.hero-slide');
+  const kbNames = ['kb0', 'kb1', 'kb2'];
+  let cur = 2;
+
+  function showSlide(idx) {
+    const slide = slides[idx];
+    const inner = slide.querySelector('.hero-slide-inner');
+    const kb = kbNames[parseInt(slide.dataset.kb)];
+    // Reset animation on inner without a reflow
+    inner.style.animation = 'none';
+    requestAnimationFrame(() => {
+      inner.style.animation = `${kb} 10s ease-out forwards`;
+      slide.classList.add('active');
+    });
+  }
+
+  function nextSlide() {
+    const outgoing = slides[cur];
+    outgoing.classList.remove('active');
+    // Let inner keep animating through the 2s fade-out, then clean up
+    const outInner = outgoing.querySelector('.hero-slide-inner');
+    setTimeout(() => { outInner.style.animation = 'none'; }, 2200);
+    cur = (cur + 1) % slides.length;
+    showSlide(cur);
+  }
+
+  showSlide(cur);
+  setInterval(nextSlide, 6500);
+
+  // Form
+  const form   = document.getElementById('theForm');
+  const body   = document.getElementById('formBody');
+  const succ   = document.getElementById('successState');
+  const sbtn   = document.getElementById('submitBtn');
+  const slbl   = document.getElementById('btnLabel');
+  const sico   = document.getElementById('btnIcon');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    sbtn.disabled = true;
+    slbl.textContent = 'Sending…';
+    sico.innerHTML = '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="28" stroke-dashoffset="14" class="spin-icon" style="animation:spin 0.9s linear infinite;transform-origin:50% 50%;"/>';
+
+    // Replace with real form endpoint (e.g. Formspree: action="https://formspree.io/f/YOUR_ID")
+    setTimeout(() => {
+      body.style.display = 'none';
+      succ.classList.add('show');
+      succ.focus();
+    }, 1100);
+  });
+</script>
+</body>
+</html>
