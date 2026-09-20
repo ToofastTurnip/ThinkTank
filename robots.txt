@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://toofastturnip.github.io/ThinkTank/sitemap.xml

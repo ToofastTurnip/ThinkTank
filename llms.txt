@@ -1,0 +1,37 @@
+# Think Tank CoWork
+
+> Think Tank CoWork is Harford County's first hi-tech coworking community, at 16 Bel Air South Parkway in Bel Air, Maryland. Private offices, dedicated desks, conference rooms, and flexible workspaces. Every membership is fully loaded, with free parking at the door.
+
+Think Tank CoWork is a single-page site (https://toofastturnip.github.io/ThinkTank/) covering workspace types, included amenities, meeting rooms, photography of the space, location, and how to book a tour. Content sections are anchors on the homepage. Membership pricing is quote-based; contact the team for current rates.
+
+## Workspaces
+
+- [Dedicated Office](https://toofastturnip.github.io/ThinkTank/#spaces): A fully private, lockable office for teams or client-facing work. Priority conference room access and extended access hours. Most popular option.
+- [Dedicated Workspace](https://toofastturnip.github.io/ThinkTank/#spaces): A reserved personal desk in the open workspace, the same spot every time, leave your gear. Conference room discounts and extended access hours.
+- [Unshared Desk](https://toofastturnip.github.io/ThinkTank/#spaces): A single-occupancy desk in a shared room, never shared with anyone else during business hours. Core amenities, business hours access.
+- [Part-Time Desk](https://toofastturnip.github.io/ThinkTank/#spaces): Flexible hot-desking Monday to Friday, 9am to 5pm, with community access.
+
+## Amenities
+
+- [Everything included](https://toofastturnip.github.io/ThinkTank/#amenities): Enterprise-grade WiFi; print / copy / scan / fax; a kitchen with free coffee, snacks and beer; conference room access; free dedicated parking; mail and business address service; networking events; local partner discounts. No hidden fees.
+- Outdoor patio space next door for warm-weather meetings.
+
+## Meeting Rooms
+
+- [Conference and meeting rooms](https://toofastturnip.github.io/ThinkTank/#meetings): The Boardroom (seats ten, wall display, video conferencing), The Gallery Room, and The Huddle Room. Members book at a discount; non-members from $50 per hour.
+- Add-on services: Mail & Address Service $50–$69/mo (use 16 Bel Air South Parkway as your official business address); Reception / Live Answering $99/mo.
+
+## Location & Contact
+
+- [Location](https://toofastturnip.github.io/ThinkTank/#location): 16 Bel Air South Parkway, Bel Air, Maryland 21015, minutes from Aberdeen Proving Ground, I-95, downtown Bel Air, and Route 1.
+- [Book a tour](https://toofastturnip.github.io/ThinkTank/#contact): Tour and inquiry form on the homepage.
+- Phone: 410-844-4400
+- Email: jane@thinktankcowork.com (typical response within 24 hours)
+- Facebook: https://www.facebook.com/ThinkTankCoWork
+- LinkedIn: https://www.linkedin.com/in/think-tank-cowork-b017101b1
+
+## Optional
+
+- [Photo gallery](https://toofastturnip.github.io/ThinkTank/#gallery): Sixteen photographs of the offices, desks, kitchen, lounge, mail room, conference rooms, and building exterior.
+- [Sitemap](https://toofastturnip.github.io/ThinkTank/sitemap.xml)
+- Note: this site is currently a demo build for the customer and is not the live production site.

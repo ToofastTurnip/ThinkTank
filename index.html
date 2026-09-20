@@ -5,1065 +5,1104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="brand/favicon.ico">
   <title>Think Tank CoWork | Bel Air, Maryland</title>
-  <meta name="description" content="Harford County's first hi-tech coworking community. Premium offices, dedicated desks, and flexible workspaces in Bel Air, MD.">
+  <meta name="description" content="Harford County's first hi-tech coworking community. Private offices, dedicated desks, conference rooms, and flexible workspaces in Bel Air, MD.">
+
+  <!-- ════════════════════════════════════════════════════════════
+       TYPOGRAPHY — Playfair Display (editorial serif headlines)
+                    Plus Jakarta Sans (geometric sans UI/body)
+       ════════════════════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Warm up the two above-the-fold hero photographs -->
+  <link rel="preload" as="image" href="images2/web/open-workspace.jpg" fetchpriority="high">
+
+  <!-- ════════════════════════════════════════════════════════════
+       TAILWIND — Play CDN (runtime compile; see README for the
+       compiled-stylesheet swap)
+       ════════════════════════════════════════════════════════════ -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    /* Design tokens. These mirror the CSS custom properties in :root below —
+       keep the two in sync, or move both into tailwind.config.js for a build. */
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            /* Warm base — never stark white */
+            linen: { 50:'#FDFCF9', 100:'#F9F6F0', 200:'#F2ECE1', 300:'#E7DECE', 400:'#D8CBB4', DEFAULT:'#F9F6F0' },
+            /* Deep charcoal/slate — never pure black */
+            ink:   { DEFAULT:'#2D3142', 900:'#22252F', 800:'#282C3A', 700:'#3C4154', 600:'#4E5468', 500:'#6B7183', 400:'#8E93A4', 300:'#B4B8C4' },
+            /* Primary accent — rich copper/bronze */
+            copper:{ 50:'#FCF4EF', 100:'#F6E5DA', 200:'#EDCDBA', 300:'#E0A98D', 400:'#D48F6D', 500:'#C8795A', 600:'#B06546', 700:'#8E4F35', DEFAULT:'#C8795A' },
+            /* Secondary accent — brand heritage baby blue */
+            powder:{ 50:'#F3F8FD', 100:'#D4E4F7', 200:'#BFD6F1', 300:'#A2C2E7', 400:'#7BA4DB', 500:'#5B87C4', 600:'#456FA8', DEFAULT:'#D4E4F7' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'Times New Roman', 'serif'],
+            sans:  ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          fontSize: {
+            display: ['clamp(2.6rem,5vw,4.5rem)',     { lineHeight:'1.04', letterSpacing:'-0.022em' }],
+            h2:      ['clamp(1.9rem,3.5vw,3rem)',     { lineHeight:'1.1',  letterSpacing:'-0.017em' }],
+            h3:      ['clamp(1.25rem,1.9vw,1.625rem)',{ lineHeight:'1.24', letterSpacing:'-0.008em' }],
+            h4:      ['1.0625rem',                    { lineHeight:'1.35', letterSpacing:'-0.005em' }],
+            kicker:  ['0.6875rem',                    { lineHeight:'1',    letterSpacing:'0.22em' }],
+            lede:    ['clamp(1.0625rem,1.4vw,1.1875rem)', { lineHeight:'1.68' }],
+          },
+          /* Bond-style generous rounding */
+          borderRadius: { '4xl':'2rem', '5xl':'2.75rem' },
+          maxWidth: { content: '1240px', wide: '1440px', prose: '46rem' },
+          boxShadow: {
+            soft:   '0 1px 3px rgba(45,49,66,0.03), 0 8px 26px rgba(45,49,66,0.05)',
+            lift:   '0 6px 18px rgba(45,49,66,0.06), 0 22px 50px rgba(45,49,66,0.09)',
+            photo:  '0 10px 30px rgba(45,49,66,0.10), 0 30px 70px rgba(45,49,66,0.10)',
+            copper: '0 8px 26px rgba(200,121,90,0.26)',
+          },
+          transitionTimingFunction: { soft: 'cubic-bezier(0.16,1,0.3,1)' },
+        }
+      }
+    }
+  </script>
+
   <style>
-    /* ── TOKENS ── */
+    /* ══════════════════════════════════════════════════════════════
+       GLOBAL CSS VARIABLES — Boutique Hospitality Design System
+       ══════════════════════════════════════════════════════════════ */
     :root {
-      --bg:            #ffffff;
-      --bg-raised:     #f4f8fd;
-      --bg-card:       #ffffff;
-      --surface:       rgba(15,23,42,0.035);
-      --surface-hover: rgba(15,23,42,0.06);
-      --surface-hi:    rgba(15,23,42,0.045);
-      --txt:           #0f1629;
-      --txt-2:         #52607a;
-      --txt-3:         #94a1b8;
-      --blue:          #2563eb;
-      --blue-dim:      rgba(37,99,235,0.10);
-      --blue-border:   rgba(37,99,235,0.28);
-      --amber:         #f59e0b;
-      --amber-ink:     #b45309;
-      --amber-dim:     rgba(245,158,11,0.12);
-      --amber-border:  rgba(245,158,11,0.35);
-      --purple:        #6366f1;
-      --green:         #16a34a;
-      --border:        rgba(15,23,42,0.10);
-      --border-2:      rgba(15,23,42,0.16);
-      --shadow-md:     0 8px 32px rgba(15,23,42,0.10);
-      --shadow-blue:   0 8px 32px rgba(37,99,235,0.20);
-      --r-sm:  8px;
-      --r-md:  12px;
-      --r-lg:  16px;
-      --r-xl:  24px;
-      --r-2xl: 32px;
-      --r-pill: 9999px;
-      --ease: cubic-bezier(0.16,1,0.3,1);
-      --nav-h: 72px;
-      --banner-h: 40px;
-      --max-w: 1280px;
-      --font-head: 'Space Grotesk', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
+      /* ── Surfaces: warm beige / linen (no stark white) ── */
+      --linen-50:    #FDFCF9;
+      --linen-100:   #F9F6F0;
+      --linen-200:   #F2ECE1;
+      --linen-300:   #E7DECE;
+      --linen-400:   #D8CBB4;
+
+      /* ── Ink: deep charcoal / slate (no pure black) ── */
+      --ink:         #2D3142;
+      --ink-700:     #3C4154;
+      --ink-600:     #4E5468;
+      --ink-500:     #6B7183;
+      --ink-400:     #8E93A4;
+      --ink-300:     #B4B8C4;
+
+      /* ── Primary accent: rich copper / bronze ── */
+      --copper-50:   #FCF4EF;
+      --copper-100:  #F6E5DA;
+      --copper-300:  #E0A98D;
+      --copper:      #C8795A;
+      --copper-600:  #B06546;
+      --copper-700:  #8E4F35;
+
+      /* ── Secondary accent: brand heritage baby blue ── */
+      --powder-50:   #F3F8FD;
+      --powder-100:  #D4E4F7;
+      --powder-200:  #BFD6F1;
+      --powder-400:  #7BA4DB;
+      --powder-600:  #456FA8;
+
+      /* ── Type ── */
+      --font-serif:  'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-sans:   'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+      /* ── Structure ── */
+      --banner-h:    40px;
+      --nav-h:       76px;
+      --ease-soft:   cubic-bezier(0.16, 1, 0.3, 1);
+      --shadow-inset: inset 0 1px 2px rgba(45, 49, 66, 0.035);
     }
 
-    /* ── RESET ── */
+    /* ══════════════════════════════════════════════════════════════
+       BASE / RESET — also paints the warm base before Tailwind's
+       runtime compile finishes, so there is no white flash.
+       ══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-    body {
-      background: var(--bg);
-      color: var(--txt);
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
+    html {
+      scroll-behavior: smooth;
+      scrollbar-gutter: stable;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: var(--linen-100);
     }
+    body {
+      background: var(--linen-100);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+    h1, h2, h3, .font-serif { font-family: var(--font-serif); }
     a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
     ul { list-style: none; }
-    input, textarea, select { font-family: var(--font-body); }
-    img { max-width: 100%; display: block; }
+    input, textarea, select { font-family: var(--font-sans); }
+    img, iframe { max-width: 100%; display: block; }
+    ::selection { background: var(--copper-100); color: var(--copper-700); }
+
+    :focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; border-radius: 4px; }
 
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
     }
 
-    /* ── SKIP LINK ── */
-    .skip-link {
-      position: absolute; top: -100px; left: 16px; z-index: 9999;
-      padding: 10px 20px; background: var(--blue); color: #fff;
-      border-radius: var(--r-sm); font-weight: 600; font-size: 14px;
-      transition: top 0.2s;
+    /* ══════════════════════════════════════════════════════════════
+       SCROLL REVEAL
+       ══════════════════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 700ms var(--ease-soft), transform 700ms var(--ease-soft);
     }
-    .skip-link:focus { top: calc(var(--banner-h) + 16px); }
-
-    /* ── DEMO BANNER ── */
-    .demo-banner {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
-      height: var(--banner-h);
-      display: flex; align-items: center; justify-content: center;
-      background: var(--amber-dim); border-bottom: 1px solid var(--amber-border);
-      color: var(--amber-ink); font-size: 13px; font-weight: 600; text-align: center;
-      padding: 0 16px;
-    }
-
-    /* ── LAYOUT ── */
-    .wrap {
-      width: 100%; max-width: var(--max-w);
-      margin: 0 auto; padding: 0 24px;
-    }
-    @media (max-width: 768px) { .wrap { padding: 0 16px; } }
-
-    /* ── AMBIENT BLOBS ── */
-    .blobs {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    }
-    .blob {
-      position: absolute; border-radius: 50%;
-      filter: blur(80px); animation: floatBlob 22s ease-in-out infinite;
-    }
-    .b1 { width: 560px; height: 560px; background: var(--blue); opacity: 0.10; top: -200px; left: -150px; animation-duration: 28s; }
-    .b2 { width: 380px; height: 380px; background: var(--amber); opacity: 0.07; top: 25%; right: -100px; animation-delay: -6s; animation-duration: 22s; }
-    .b3 { width: 460px; height: 460px; background: var(--purple); opacity: 0.07; bottom: 5%; left: 28%; animation-delay: -12s; animation-duration: 32s; }
-    @keyframes floatBlob {
-      0%,100% { transform: translate(0,0) scale(1); }
-      33%      { transform: translate(36px,-28px) scale(1.06); }
-      66%      { transform: translate(-26px,18px) scale(0.94); }
-    }
-
-    /* ── GRID BG ── */
-    .grid-bg {
-      position: absolute; inset: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(37,99,235,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37,99,235,0.05) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black, transparent);
-      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black, transparent);
-    }
-
-    /* ── TYPOGRAPHY ── */
-    .t-disp {
-      font-family: var(--font-head); font-weight: 700;
-      font-size: clamp(48px,6.5vw,80px); line-height: 1.04; letter-spacing: -0.025em;
-    }
-    .t-h2 {
-      font-family: var(--font-head); font-weight: 600;
-      font-size: clamp(32px,4vw,48px); line-height: 1.12; letter-spacing: -0.018em;
-    }
-    .t-h3 {
-      font-family: var(--font-head); font-weight: 600;
-      font-size: clamp(20px,2.5vw,24px); line-height: 1.25; letter-spacing: -0.01em;
-    }
-    .t-lg { font-size: clamp(17px,2.2vw,19px); line-height: 1.65; }
-    .t-sm { font-size: 14px; }
-    .t-xs { font-size: 12px; }
-
-    .grad-text {
-      background: linear-gradient(125deg, var(--txt) 10%, var(--blue) 55%, var(--purple) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .amber-text { color: var(--amber); }
-    .blue-text  { color: var(--blue); }
-    .muted      { color: var(--txt-2); }
-
-    /* ── BADGE ── */
-    .badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 13px; border-radius: var(--r-pill);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    }
-    .badge-blue   { background: var(--blue-dim);  color: var(--blue);  border: 1px solid var(--blue-border); }
-    .badge-amber  { background: var(--amber-dim); color: var(--amber-ink); border: 1px solid var(--amber-border); }
-
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 24px; font-size: 14px; font-weight: 600;
-      border-radius: var(--r-sm); transition: all 200ms var(--ease);
-      cursor: pointer; white-space: nowrap; font-family: var(--font-body);
-    }
-    .btn-primary {
-      background: var(--blue); color: #fff; box-shadow: var(--shadow-blue);
-    }
-    .btn-primary:hover  { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 14px 40px rgba(37,99,235,0.38); }
-    .btn-primary:active { transform: translateY(0); }
-    .btn-ghost {
-      background: var(--surface); color: var(--txt); border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { background: var(--surface-hover); border-color: var(--border-2); transform: translateY(-2px); }
-    .btn-lg { padding: 15px 32px; font-size: 16px; border-radius: var(--r-md); }
-    .btn-full { width: 100%; justify-content: center; }
-
-    /* ── GLASS CARD ── */
-    .card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); transition: background 200ms var(--ease), border-color 200ms var(--ease), transform 250ms var(--ease), box-shadow 250ms var(--ease);
-    }
-    .card:hover { background: var(--surface-hover); border-color: var(--border-2); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .card-no-hover:hover { transform: none; box-shadow: none; }
-
-    /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 420ms var(--ease), transform 420ms var(--ease); }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-    .d1 { transition-delay: 80ms; }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay:  80ms; }
     .d2 { transition-delay: 160ms; }
     .d3 { transition-delay: 240ms; }
     .d4 { transition-delay: 320ms; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 
-    /* ── DIVIDER ── */
-    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
-
-    /* ── SECTION HEADER ── */
-    .s-head { text-align: center; max-width: 640px; margin: 0 auto 72px; }
-    .s-head .badge { margin-bottom: 16px; }
-    .s-head h2 { margin-bottom: 16px; }
-    .s-head p { color: var(--txt-2); }
-
-    /* ════════════════════════════════
-       NAV
-       ════════════════════════════════ */
-    .nav {
-      position: fixed; top: var(--banner-h); left: 0; right: 0; z-index: 100;
-      height: var(--nav-h);
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      transition: background 250ms, border-color 250ms;
+    /* ══════════════════════════════════════════════════════════════
+       FIXED HEADER STRIP
+       The nav is a translucent plate over a 24px backdrop blur. Transitioning
+       `all` animates backdrop-filter too, which makes Chrome re-rasterise the
+       blur every frame and drop frames in the header. Only the three
+       properties that actually change on .scrolled are transitioned.
+       ══════════════════════════════════════════════════════════════ */
+    .nav-shell {
+      transition: background-color 300ms var(--ease-soft),
+                  border-color     300ms var(--ease-soft),
+                  box-shadow       300ms var(--ease-soft);
     }
-    .nav.scrolled { background: rgba(255,255,255,0.95); border-color: var(--border-2); }
-    .nav .wrap { height: 100%; }
-    .nav-in { display: flex; align-items: center; justify-content: space-between; height: 100%; }
-    .nav-logo { display: flex; align-items: center; gap: 10px; }
-    .logo-mark {
-      width: 34px; height: 34px; border-radius: var(--r-sm); flex-shrink: 0;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
+
+    /* Slow ambient zoom on the hero photograph */
+    @keyframes heroDrift {
+      from { transform: scale(1.0); }
+      to   { transform: scale(1.07); }
+    }
+    .hero-drift { animation: heroDrift 22s ease-out forwards; }
+
+    /* ══════════════════════════════════════════════════════════════
+       LOAD-BEARING SCRIMS
+       These two backgrounds are defined here rather than as Tailwind
+       utilities: the Play CDN silently failed to emit the
+       `bg-ink-900/[72%]` and `bg-linen/[98%]` opacity variants,
+       leaving both panels transparent. Text
+       legibility depends on them, so they must not rely on the
+       runtime scanner.
+       ══════════════════════════════════════════════════════════════ */
+    .scrim-ink  { background: rgba(34, 37, 47, 0.72); }   /* --ink-900 @ 72% */
+    .panel-linen{ background: rgba(249, 246, 240, 0.98); } /* --linen-100 @ 98% */
+
+    /* ══════════════════════════════════════════════════════════════
+       PHOTO TREATMENT — every image is a rounded, hoverable plate
+       ══════════════════════════════════════════════════════════════ */
+    .photo { overflow: hidden; background: var(--linen-200); }
+    .photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 900ms var(--ease-soft);
+    }
+    .photo-zoom:hover img { transform: scale(1.045); }
+
+    /* ══════════════════════════════════════════════════════════════
+       LIGHTBOX
+       ══════════════════════════════════════════════════════════════ */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      display: none; align-items: center; justify-content: center;
+      background: rgba(34, 37, 47, 0.94);
+      padding: 24px;
+      opacity: 0; transition: opacity 260ms var(--ease-soft);
+    }
+    #lightbox.open { display: flex; opacity: 1; }
+    #lightbox img {
+      max-width: min(1100px, 94vw); max-height: 84vh;
+      width: auto; height: auto;
+      border-radius: 1.25rem;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+    }
+    .lb-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 9999px;
       display: flex; align-items: center; justify-content: center;
+      background: rgba(253,252,249,0.14); color: var(--linen-50);
+      backdrop-filter: blur(6px);
+      transition: background 200ms;
     }
-    .logo-text {
-      font-family: var(--font-head); font-weight: 700; font-size: 18px; letter-spacing: -0.01em;
+    .lb-btn:hover { background: rgba(253,252,249,0.28); }
+    #lbPrev { left: 20px; }
+    #lbNext { right: 20px; }
+    #lbClose { top: 20px; right: 20px; transform: none; }
+    #lbCaption {
+      position: absolute; bottom: 22px; left: 0; right: 0;
+      text-align: center; color: rgba(253,252,249,0.82);
+      font-size: 13px; letter-spacing: 0.02em; padding: 0 24px;
     }
-    .logo-text span { color: var(--amber); }
-    .nav-links { display: flex; align-items: center; gap: 36px; }
-    .nav-link { font-size: 14px; font-weight: 500; color: var(--txt-2); transition: color 150ms; }
-    .nav-link:hover { color: var(--txt); }
-    .nav-cta { display: flex; align-items: center; gap: 10px; }
-    .nav-phone { font-size: 13px; font-weight: 600; color: var(--txt-2); display: flex; align-items: center; gap: 6px; transition: color 150ms; }
-    .nav-phone:hover { color: var(--txt); }
+    @media (max-width: 640px) { #lbPrev, #lbNext { display: none; } }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; cursor: pointer; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--txt); border-radius: 2px; transition: transform 250ms var(--ease), opacity 250ms; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mob-menu {
-      display: none; position: fixed; top: calc(var(--banner-h) + var(--nav-h)); left: 0; right: 0;
-      background: rgba(255,255,255,0.98); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border); padding: 20px 24px 28px;
-      flex-direction: column; gap: 4px; z-index: 99;
-    }
-    .mob-menu.open { display: flex; }
-    .mob-menu .nav-link { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 16px; }
-    .mob-menu .btn { margin-top: 12px; }
-
-    @media (max-width: 820px) {
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* ════════════════════════════════
-       HERO
-       ════════════════════════════════ */
-    .hero {
-      position: relative; z-index: 1;
-      min-height: 100dvh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center;
-      padding: calc(var(--banner-h) + var(--nav-h) + 80px) 24px 96px;
-      overflow: hidden;
-    }
-    /* Photo slide stack */
-    .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-    /* Outer div — opacity only, no transform */
-    .hero-slide {
-      position: absolute; inset: 0;
-      opacity: 0; transition: opacity 2s ease;
-    }
-    .hero-slide.active { opacity: 1; }
-    /* Inner div — Ken Burns transform only, never interrupted by opacity changes */
-    .hero-slide-inner {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      will-change: transform;
-    }
-    @keyframes kb0 {
-      from { transform: scale(1.0) translate(0, 0); }
-      to   { transform: scale(1.07) translate(-1.2%, -0.8%); }
-    }
-    @keyframes kb1 {
-      from { transform: scale(1.06) translate(0.8%, 0.4%); }
-      to   { transform: scale(1.0) translate(-0.6%, -0.4%); }
-    }
-    @keyframes kb2 {
-      from { transform: scale(1.0) translate(-0.8%, 0.5%); }
-      to   { transform: scale(1.07) translate(0.6%, -0.8%); }
-    }
-    /* Dark cinematic gradient over photos */
-    .hero-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background:
-        radial-gradient(ellipse 80% 55% at 50% 48%, rgba(255,255,255,0.55) 0%, transparent 100%),
-        linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(255,255,255,0.62) 38%, rgba(255,255,255,0.88) 100%);
-    }
-    /* Grid texture sits above overlay */
-    .grid-bg { z-index: 2; }
-    /* Hero text content above everything */
-    .hero-body {
-      position: relative; z-index: 3;
-      display: flex; flex-direction: column; align-items: center; width: 100%;
-    }
-    .hero-body .badge { margin-bottom: 24px; }
-    .hero-eyebrow {
-      display: inline-block;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--amber-ink);
-      margin-bottom: 24px;
-    }
-    .hero-body h1 {
-      max-width: 880px; margin: 0 auto 24px;
-      color: var(--txt);
-      text-shadow: 0 2px 28px rgba(255,255,255,0.65), 0 1px 4px rgba(255,255,255,0.8);
-    }
-    .hero-body h1 .grad-text {
-      background: none;
-      -webkit-text-fill-color: var(--blue);
-    }
-    .hero-body .sub {
-      max-width: 580px; margin: 0 auto 48px; color: rgba(15,22,41,0.78);
-      text-shadow: 0 1px 12px rgba(255,255,255,0.7);
-    }
-    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .hero-scroll {
-      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-      z-index: 3;
-      color: rgba(15,22,41,0.55); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      animation: scrollBounce 2.2s ease-in-out infinite;
-    }
-    @keyframes scrollBounce {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(7px); }
-    }
-    @media (max-width: 1024px) { .hero-scroll { display: none !important; } }
-
-    /* ════════════════════════════════
-       STATS BAR
-       ════════════════════════════════ */
-    .stats-bar {
-      position: relative; z-index: 1;
-      background: rgba(244,248,253,0.9);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    }
-    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); }
-    .stat {
-      padding: 28px 20px; text-align: center;
-      border-right: 1px solid var(--border);
-    }
-    .stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: var(--font-head); font-size: clamp(28px,4vw,40px);
-      font-weight: 700; color: var(--blue); line-height: 1; letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-    .stat-lbl { font-size: 13px; color: var(--txt-2); font-weight: 500; }
-    @media (max-width: 640px) {
-      .stats-grid { grid-template-columns: repeat(2,1fr); }
-      .stat:nth-child(2) { border-right: none; }
-      .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid var(--border); }
-      .stat:nth-child(4) { border-right: none; }
-    }
-
-    /* ════════════════════════════════
-       FEATURES
-       ════════════════════════════════ */
-    .features { padding: 100px 0; position: relative; z-index: 1; }
-    .feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-    .feat-card { padding: 36px 32px; }
-    .feat-icon {
-      width: 52px; height: 52px; border-radius: var(--r-md);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 24px;
-    }
-    .ic-blue   { background: var(--blue-dim);  color: var(--blue); }
-    .ic-amber  { background: var(--amber-dim); color: var(--amber); }
-    .ic-purple { background: rgba(99,102,241,0.12); color: var(--purple); }
-    .ic-green  { background: rgba(22,163,74,0.12); color: var(--green); }
-    .feat-card h3 { margin-bottom: 12px; }
-    .feat-card p { color: var(--txt-2); font-size: 15px; line-height: 1.7; }
-    @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr; gap: 12px; } }
-
-    /* ════════════════════════════════
-       AMENITIES
-       ════════════════════════════════ */
-    .amenities { padding: 100px 0; position: relative; z-index: 1; }
-    .amen-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-    .amen-card { display: flex; align-items: flex-start; gap: 16px; padding: 22px 20px; }
-    .amen-icon {
-      width: 38px; height: 38px; border-radius: var(--r-sm); flex-shrink: 0;
-      background: var(--blue-dim); color: var(--blue);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .amen-card h4 { font-family: var(--font-head); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .amen-card p  { font-size: 13px; color: var(--txt-2); line-height: 1.5; }
-    @media (max-width: 900px) { .amen-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 560px) { .amen-grid { grid-template-columns: 1fr; } }
-
-    /* ════════════════════════════════
-       MEMBERSHIP
-       ════════════════════════════════ */
-    .membership { padding: 100px 0; position: relative; z-index: 1; }
-    .mem-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
-    .mem-card { padding: 32px 24px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-    .mem-card.featured { border-color: var(--blue-border); background: rgba(37,99,235,0.05); }
-    .mem-card.featured::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--blue), var(--purple));
-    }
-    .pop-tag {
-      position: absolute; top: 14px; right: 14px;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--blue); background: var(--blue-dim); border: 1px solid var(--blue-border);
-      padding: 3px 10px; border-radius: var(--r-pill);
-    }
-    .mem-icon {
-      width: 44px; height: 44px; border-radius: var(--r-md);
-      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
-      background: var(--surface-hi);
-    }
-    .mem-card h3 { font-family: var(--font-head); font-size: 18px; font-weight: 600; margin-bottom: 10px; }
-    .mem-card > p { font-size: 13px; color: var(--txt-2); line-height: 1.65; margin-bottom: 20px; flex: 1; }
-    .perks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-    .perk { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--txt-2); }
-    .perk svg { color: var(--green); flex-shrink: 0; }
-    @media (max-width: 1024px) { .mem-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 560px)  { .mem-grid { grid-template-columns: 1fr; } }
-
-    /* ════════════════════════════════
-       ADD-ONS
-       ════════════════════════════════ */
-    .addons { padding: 0 0 100px; position: relative; z-index: 1; }
-    .addons-box {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-2xl); padding: 56px;
-    }
-    .addons-top {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 32px; margin-bottom: 40px;
-    }
-    .addons-top h3 { margin-top: 12px; }
-    .addons-top p  { font-size: 15px; color: var(--txt-2); max-width: 380px; line-height: 1.65; }
-    .addon-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    .addon-item {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-md); padding: 22px;
-    }
-    .addon-price {
-      font-family: var(--font-head); font-size: 26px; font-weight: 700;
-      color: var(--green); margin-bottom: 4px;
-    }
-    .addon-price span { font-size: 13px; font-weight: 400; color: var(--txt-2); }
-    .addon-name { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
-    .addon-desc { font-size: 13px; color: var(--txt-2); line-height: 1.55; }
-    @media (max-width: 900px) {
-      .addons-box { padding: 32px 24px; }
-      .addons-top { flex-direction: column; }
-      .addon-list { grid-template-columns: 1fr; }
-    }
-
-    /* ════════════════════════════════
-       LOCATION
-       ════════════════════════════════ */
-    .location { padding: 100px 0; position: relative; z-index: 1; }
-    .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .loc-content h2 { margin-bottom: 20px; }
-    .loc-content > p { color: var(--txt-2); margin-bottom: 36px; }
-    .loc-details { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
-    .loc-detail { display: flex; align-items: flex-start; gap: 12px; }
-    .loc-ic {
-      width: 34px; height: 34px; flex-shrink: 0; border-radius: var(--r-sm);
-      background: var(--blue-dim); color: var(--blue);
-      display: flex; align-items: center; justify-content: center; margin-top: 2px;
-    }
-    .loc-detail strong { display: block; font-weight: 600; font-size: 15px; }
-    .loc-detail span { font-size: 13px; color: var(--txt-2); }
-    .prox-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-    .prox-tag {
-      padding: 6px 14px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-pill); font-size: 12px; color: var(--txt-2); font-weight: 500;
-    }
-    .map-frame {
-      border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border);
-      aspect-ratio: 4/3; position: sticky; top: calc(var(--banner-h) + var(--nav-h) + 24px);
-    }
-    .map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-    @media (max-width: 900px) {
-      .loc-grid { grid-template-columns: 1fr; gap: 48px; }
-      .map-frame { aspect-ratio: 16/9; position: static; }
-    }
-
-    /* ════════════════════════════════
-       CONTACT
-       ════════════════════════════════ */
-    .contact { padding: 100px 0; position: relative; z-index: 1; }
-    .con-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 80px; align-items: start; }
-    .con-info h2 { margin-bottom: 16px; }
-    .con-info > p { color: var(--txt-2); margin-bottom: 36px; }
-    .con-links { display: flex; flex-direction: column; gap: 16px; }
-    .con-link {
-      display: flex; align-items: center; gap: 12px;
-      color: var(--txt-2); font-size: 15px; transition: color 150ms;
-    }
-    .con-link:hover { color: var(--txt); }
-    .con-ic {
-      width: 40px; height: 40px; flex-shrink: 0;
-      background: var(--surface-hi); border: 1px solid var(--border);
-      border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center;
-    }
-    .con-link strong { display: block; color: var(--txt); font-weight: 500; font-size: 15px; }
-    .con-link small  { font-size: 12px; color: var(--txt-3); }
-    .socials { display: flex; gap: 10px; margin-top: 28px; }
-    .social-btn {
-      width: 42px; height: 42px;
-      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--txt-2); transition: all 200ms var(--ease);
-    }
-    .social-btn:hover { background: var(--surface-hover); color: var(--txt); border-color: var(--border-2); }
-
-    /* Form */
-    .form-wrap { padding: 36px; }
-    .form-title { font-family: var(--font-head); font-size: 22px; font-weight: 600; margin-bottom: 6px; }
-    .form-sub   { font-size: 13px; color: var(--txt-2); margin-bottom: 28px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-    .field label { font-size: 13px; font-weight: 500; color: var(--txt-2); }
-    .field label .req { color: var(--amber-ink); margin-left: 2px; }
-    .inp {
-      width: 100%; padding: 11px 14px;
-      background: var(--surface-hi); border: 1px solid var(--border); border-radius: var(--r-sm);
-      color: var(--txt); font-size: 15px; font-family: var(--font-body);
-      transition: border-color 150ms, box-shadow 150ms, background 150ms;
+    /* ══════════════════════════════════════════════════════════════
+       FORM CONTROLS — linen fields, copper focus
+       ══════════════════════════════════════════════════════════════ */
+    .field-input {
+      width: 100%;
+      padding: 12px 15px;
+      background: var(--linen-100);
+      border: 1px solid var(--linen-300);
+      border-radius: 10px;
+      color: var(--ink);
+      font-size: 15px;
+      box-shadow: var(--shadow-inset);
+      transition: border-color 180ms var(--ease-soft), box-shadow 180ms var(--ease-soft), background 180ms;
       -webkit-appearance: none;
+      appearance: none;
     }
-    .inp::placeholder { color: var(--txt-3); }
-    .inp:focus {
-      outline: none; border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.18); background: var(--surface-hover);
+    .field-input::placeholder { color: var(--ink-300); }
+    .field-input:focus {
+      outline: none;
+      background: var(--linen-50);
+      border-color: var(--copper);
+      box-shadow: 0 0 0 3px rgba(200, 121, 90, 0.16);
     }
-    textarea.inp { resize: vertical; min-height: 110px; line-height: 1.6; }
-    select.inp {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 12px center; padding-right: 34px; cursor: pointer;
+    textarea.field-input { resize: vertical; min-height: 118px; line-height: 1.65; }
+    select.field-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C8795A' stroke-width='2.2' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+      cursor: pointer;
     }
-    select.inp option { background: var(--bg-card); color: var(--txt); }
+    select.field-input option { background: var(--linen-50); color: var(--ink); }
+
     @keyframes spin { to { transform: rotate(360deg); } }
-    .spin-icon { animation: spin 0.9s linear infinite; display: inline-block; }
-
-    .success-state {
-      display: none; flex-direction: column; align-items: center;
-      text-align: center; padding: 56px 32px; gap: 14px;
+    .spin-icon { animation: spin 0.9s linear infinite; transform-origin: 50% 50%; }
+    /* ══════════════════════════════════════════════════════════════
+       BUILT BY BEE & GOLD BADGE — idle bee mark in the footer's
+       bottom-right corner that swaps for a sparkle-trimmed credit
+       line on hover / keyboard focus.
+       ══════════════════════════════════════════════════════════════ */
+    .bee-badge {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      color: var(--ink-400);
+      text-decoration: none;
     }
-    .success-state.show { display: flex; }
-    .success-ic {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: rgba(22,163,74,0.14); color: var(--green);
-      display: flex; align-items: center; justify-content: center;
+    .bee-badge-logo {
+      width: 20px;
+      height: 20px;
+      transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 300ms ease;
     }
-    .success-state h3 { font-family: var(--font-head); font-size: 22px; font-weight: 600; }
-    .success-state p  { color: var(--txt-2); font-size: 15px; max-width: 320px; }
-
-    @media (max-width: 900px) { .con-grid { grid-template-columns: 1fr; gap: 48px; } }
-    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } .form-wrap { padding: 24px; } }
-
-    /* ════════════════════════════════
-       CTA STRIP
-       ════════════════════════════════ */
-    .cta-strip { padding: 0 0 100px; position: relative; z-index: 1; }
-    .cta-box {
-      background: linear-gradient(135deg, rgba(37,99,235,0.09), rgba(99,102,241,0.06));
-      border: 1px solid var(--blue-border); border-radius: var(--r-2xl);
-      padding: 72px 48px; text-align: center; position: relative; overflow: hidden;
-    }
-    .cta-box::before {
-      content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
-      width: 500px; height: 280px;
-      background: radial-gradient(ellipse, rgba(37,99,235,0.12), transparent 70%);
+    .bee-badge-tip {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translate(4px, -50%);
+      padding: 3px 7px;
+      border-radius: 7px;
+      /* the footer band is bg-linen-200/60 over --linen-100; this is that composite,
+         so the chip stays invisible against it while keeping the credit legible if
+         the row tightens enough for the tip to overlap the legal links */
+      background: #F5F0E7;
+      white-space: nowrap;
+      font-family: var(--font-serif);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+      opacity: 0;
       pointer-events: none;
+      transition: transform 300ms ease 100ms, opacity 300ms ease 100ms;
     }
-    .cta-box h2 { margin-bottom: 14px; }
-    .cta-box p  { color: var(--txt-2); margin-bottom: 36px; }
-    .cta-btns   { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    @media (max-width: 600px) { .cta-box { padding: 48px 24px; } }
+    .bee-badge-tip-name {
+      position: relative;
+      margin-left: 3px;
+      color: var(--copper);
+      font-weight: 600;
+    }
+    .bee-badge-spark {
+      position: absolute;
+      font-size: 0.55rem;
+      line-height: 1;
+      color: var(--copper-300);
+      opacity: 0;
+    }
+    .bee-badge-spark-1 { top: -9px;    left: -10px; animation-delay: 0s; }
+    .bee-badge-spark-2 { top: -11px;   right: 6px;  animation-delay: 0.45s; }
+    .bee-badge-spark-3 { bottom: -9px; right: -8px; animation-delay: 0.9s; }
+    .bee-badge-spark-4 { bottom: -7px; left: 10px;  animation-delay: 0.25s; }
+    @keyframes beeTwinkle {
+      0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+      50%      { opacity: 1; transform: scale(1)   rotate(90deg); }
+    }
+    @media (hover: hover) {
+      .bee-badge:hover .bee-badge-logo { transform: scale(0); opacity: 0; }
+      .bee-badge:hover .bee-badge-tip  { transform: translate(0, -50%); opacity: 1; }
+      .bee-badge:hover .bee-badge-spark { animation: beeTwinkle 1.4s ease-in-out infinite; }
+    }
+    .bee-badge:focus-visible .bee-badge-logo  { transform: scale(0); opacity: 0; }
+    .bee-badge:focus-visible .bee-badge-tip   { transform: translate(0, -50%); opacity: 1; }
+    .bee-badge:focus-visible .bee-badge-spark { animation: beeTwinkle 1.4s ease-in-out infinite; }
 
-    /* ════════════════════════════════
-       FOOTER
-       ════════════════════════════════ */
-    footer {
-      border-top: 1px solid var(--border); padding: 60px 0 36px;
-      position: relative; z-index: 1; background: rgba(244,248,253,0.85);
+    /* Below ~768px the bottom bar tightens until the credit would land on top of
+       the legal links, so there it unfurls upward from the badge instead of left. */
+    @media (max-width: 767px) {
+      .bee-badge-tip {
+        right: 0;
+        top: auto;
+        bottom: calc(100% - 4px);
+        transform: translateY(4px);
+      }
+      .bee-badge:focus-visible .bee-badge-tip { transform: translateY(0); }
     }
-    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
-    .footer-brand p { font-size: 14px; color: var(--txt-2); line-height: 1.65; margin: 14px 0 20px; }
-    .footer-col-lbl {
-      font-family: var(--font-head); font-size: 11px; font-weight: 700;
-      letter-spacing: 0.07em; text-transform: uppercase; color: var(--txt-3); margin-bottom: 16px;
+    @media (max-width: 767px) and (hover: hover) {
+      .bee-badge:hover .bee-badge-tip { transform: translateY(0); }
     }
-    .footer-links { display: flex; flex-direction: column; gap: 12px; }
-    .footer-link { font-size: 14px; color: var(--txt-2); transition: color 150ms; }
-    .footer-link:hover { color: var(--txt); }
-    .footer-bot {
-      border-top: 1px solid var(--border); padding-top: 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
-    }
-    .footer-bot p { font-size: 12px; color: var(--txt-3); }
-    .footer-bot-links { display: flex; gap: 24px; }
-    @media (max-width: 820px) {
-      .footer-top { grid-template-columns: 1fr 1fr; }
-      .footer-brand { grid-column: 1 / -1; }
-    }
-    @media (max-width: 480px) {
-      .footer-top { grid-template-columns: 1fr; }
-      .footer-bot { flex-direction: column; text-align: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bee-badge-logo, .bee-badge-tip { transition: none; }
+      .bee-badge-spark { animation: none !important; }
     }
   </style>
 </head>
-<body>
 
-<div class="demo-banner" role="status">This is a demo site for a customer and is not currently live.</div>
+<body class="bg-linen font-sans text-ink antialiased">
 
-<a class="skip-link" href="#main">Skip to main content</a>
-
-<!-- Ambient blobs -->
-<div class="blobs" aria-hidden="true">
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="blob b3"></div>
+<!-- ════════════════════════════════════════════════════════════════
+     DEMO BANNER
+     ════════════════════════════════════════════════════════════════ -->
+<div role="status"
+     class="fixed inset-x-0 top-0 z-[101] flex h-[var(--banner-h)] items-center justify-center border-b border-copper-200/70 bg-copper-50 px-4 text-center text-[12.5px] font-semibold tracking-wide text-copper-700">
+  This is a demo site for a customer and is not currently live.
 </div>
 
-<!-- ════════════════════════════════════════
+<a href="#main"
+   class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-[calc(var(--banner-h)+16px)] focus:z-[999] focus:rounded-full focus:bg-copper focus:px-6 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-linen-50">
+  Skip to main content
+</a>
+
+<!-- ════════════════════════════════════════════════════════════════
      NAV
-     ════════════════════════════════════════ -->
-<nav class="nav" id="nav" aria-label="Main navigation">
-  <div class="wrap">
-    <div class="nav-in">
-      <a class="nav-logo" href="#" aria-label="Think Tank CoWork home">
-        <img src="brand/logo.png" alt="Think Tank CoWork" height="38" style="width:auto;">
+     ════════════════════════════════════════════════════════════════ -->
+<nav id="nav" aria-label="Main navigation"
+     class="nav-shell fixed inset-x-0 top-[var(--banner-h)] z-[100] h-[var(--nav-h)] border-b border-ink/[0.08] bg-linen/80 backdrop-blur-xl [&.scrolled]:border-ink/[0.12] [&.scrolled]:bg-linen/95 [&.scrolled]:shadow-soft">
+  <div class="mx-auto flex h-full max-w-wide items-center justify-between px-6 lg:px-10">
+
+    <a href="#" aria-label="Think Tank CoWork home" class="flex shrink-0 items-center">
+      <img src="brand/logo.png" alt="Think Tank CoWork" width="150" height="40" class="h-9 w-auto sm:h-10">
+    </a>
+
+    <ul role="list" class="hidden items-center gap-9 lg:flex">
+      <li><a href="#spaces"     class="relative text-[13.5px] font-medium tracking-wide text-ink-600 transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-300 after:ease-soft hover:text-ink hover:after:w-full">Workspaces</a></li>
+      <li><a href="#amenities"  class="relative text-[13.5px] font-medium tracking-wide text-ink-600 transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-300 after:ease-soft hover:text-ink hover:after:w-full">Amenities</a></li>
+      <li><a href="#meetings"   class="relative text-[13.5px] font-medium tracking-wide text-ink-600 transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-300 after:ease-soft hover:text-ink hover:after:w-full">Meeting Rooms</a></li>
+      <li><a href="#gallery"    class="relative text-[13.5px] font-medium tracking-wide text-ink-600 transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-300 after:ease-soft hover:text-ink hover:after:w-full">Gallery</a></li>
+      <li><a href="#location"   class="relative text-[13.5px] font-medium tracking-wide text-ink-600 transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-300 after:ease-soft hover:text-ink hover:after:w-full">Location</a></li>
+    </ul>
+
+    <div class="hidden items-center gap-5 lg:flex">
+      <a href="tel:4108444400" class="flex items-center gap-2 text-[13px] font-semibold tracking-wide text-ink-600 transition-colors hover:text-copper">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        410-844-4400
       </a>
-
-      <ul class="nav-links" role="list">
-        <li><a href="#amenities" class="nav-link">Amenities</a></li>
-        <li><a href="#membership" class="nav-link">Membership</a></li>
-        <li><a href="#location" class="nav-link">Location</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-
-      <div class="nav-cta">
-        <a href="tel:4108444400" class="nav-phone">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          410-844-4400
-        </a>
-        <a href="#contact" class="btn btn-primary">Get Started</a>
-      </div>
-
-      <button class="hamburger" id="ham" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="#contact"
+         class="rounded-full bg-copper px-6 py-3 text-[13px] font-semibold tracking-wide text-linen-50 shadow-copper transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-copper-600">
+        Book a Tour
+      </a>
     </div>
+
+    <button id="ham" aria-label="Open menu" aria-expanded="false" aria-controls="mobMenu"
+            class="flex flex-col gap-[5px] p-2 lg:hidden">
+      <span class="block h-[1.5px] w-[22px] rounded bg-ink transition-transform duration-300 ease-soft"></span>
+      <span class="block h-[1.5px] w-[22px] rounded bg-ink transition-opacity duration-200"></span>
+      <span class="block h-[1.5px] w-[22px] rounded bg-ink transition-transform duration-300 ease-soft"></span>
+    </button>
   </div>
 </nav>
 
-<div class="mob-menu" id="mobMenu" aria-hidden="true">
-  <a href="#amenities" class="nav-link">Amenities</a>
-  <a href="#membership" class="nav-link">Membership</a>
-  <a href="#location" class="nav-link">Location</a>
-  <a href="#contact" class="nav-link">Contact</a>
-  <a href="tel:4108444400" class="nav-link">410-844-4400</a>
-  <a href="#contact" class="btn btn-primary btn-full">Get Started</a>
+<!-- MOBILE MENU -->
+<div id="mobMenu" aria-hidden="true"
+     class="fixed inset-x-0 top-[calc(var(--banner-h)+var(--nav-h))] z-[99] hidden flex-col gap-1 border-b border-linen-300 panel-linen px-6 pb-8 pt-5 backdrop-blur-xl [&.open]:flex lg:!hidden">
+  <a href="#spaces"        class="border-b border-linen-300 py-3.5 font-serif text-[19px] text-ink transition-colors hover:text-copper">Workspaces</a>
+  <a href="#amenities"     class="border-b border-linen-300 py-3.5 font-serif text-[19px] text-ink transition-colors hover:text-copper">Amenities</a>
+  <a href="#meetings"      class="border-b border-linen-300 py-3.5 font-serif text-[19px] text-ink transition-colors hover:text-copper">Meeting Rooms</a>
+  <a href="#gallery"       class="border-b border-linen-300 py-3.5 font-serif text-[19px] text-ink transition-colors hover:text-copper">Gallery</a>
+  <a href="#location"      class="border-b border-linen-300 py-3.5 font-serif text-[19px] text-ink transition-colors hover:text-copper">Location</a>
+  <a href="tel:4108444400" class="py-3.5 text-sm font-semibold tracking-wide text-ink-500">410-844-4400</a>
+  <a href="#contact" class="mt-3 rounded-full bg-copper px-6 py-3.5 text-center text-sm font-semibold tracking-wide text-linen-50 shadow-copper transition-colors hover:bg-copper-600">Book a Tour</a>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════════════
      MAIN
-     ════════════════════════════════════════ -->
+     ════════════════════════════════════════════════════════════════ -->
 <main id="main">
 
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-h">
-  <!-- Photo layers -->
-  <div class="hero-bg" aria-hidden="true">
-    <div class="hero-slide" data-kb="0"><div class="hero-slide-inner" style="background-image:url('images/office-1.jpg')"></div></div>
-    <div class="hero-slide" data-kb="1"><div class="hero-slide-inner" style="background-image:url('images/office-2.jpg')"></div></div>
-    <div class="hero-slide" data-kb="2"><div class="hero-slide-inner" style="background-image:url('images/office-3.jpg')"></div></div>
-    <div class="hero-slide" data-kb="0"><div class="hero-slide-inner" style="background-image:url('images/office-4.jpg')"></div></div>
-    <div class="hero-slide" data-kb="1"><div class="hero-slide-inner" style="background-image:url('images/office-5.jpg')"></div></div>
-    <div class="hero-slide" data-kb="2"><div class="hero-slide-inner" style="background-image:url('images/office-6.jpg')"></div></div>
-  </div>
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="grid-bg" aria-hidden="true"></div>
+<!-- ════════════════════════════════════════════════════════════════
+     HERO — text block, then a big rounded photo pair
+     ════════════════════════════════════════════════════════════════ -->
+<section aria-labelledby="hero-h" class="pt-[calc(var(--banner-h)+var(--nav-h)+3.5rem)] lg:pt-[calc(var(--banner-h)+var(--nav-h)+5rem)]">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
 
-  <!-- Content -->
-  <div class="hero-body">
-    <h1 class="t-disp reveal d1" id="hero-h">
-      Where <span class="grad-text">Ideas</span> Meet<br>Opportunity.
-    </h1>
-
-    <p class="t-lg sub reveal d2">
-      Harford County's first hi-tech coworking community. Premium workspaces, real community, and zero long-term commitments in the heart of Bel Air, MD.
+    <p class="reveal flex items-center gap-3 text-kicker font-semibold uppercase text-copper">
+      <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+      Bel Air, Maryland
     </p>
 
-    <div class="hero-btns reveal d3">
-      <a href="#contact" class="btn btn-primary btn-lg">
-        Book Your Space
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="#membership" class="btn btn-ghost btn-lg">View Plans</a>
-    </div>
-  </div>
+    <h1 id="hero-h" class="reveal d1 mt-7 max-w-4xl font-serif text-display font-normal text-ink">
+      Workspace that feels like
+      <em class="not-italic text-copper">somewhere</em>, not anywhere.
+    </h1>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-    Scroll to explore
+    <!-- Lede sits left, CTAs push to the right edge of the container -->
+    <div class="reveal d2 mt-9 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+      <p class="max-w-[38rem] text-lede text-ink-500">
+        Harford County's first hi-tech coworking community. Private offices, dedicated
+        desks, and conference rooms, with free parking, a stocked kitchen, and a
+        restaurant patio right next door.
+      </p>
+      <div class="flex flex-wrap items-center gap-3.5 lg:shrink-0">
+        <a href="#contact"
+           class="group inline-flex items-center gap-2.5 rounded-full bg-copper px-8 py-4 text-[14.5px] font-semibold tracking-wide text-linen-50 shadow-copper transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-copper-600">
+          Book a Tour
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+               class="transition-transform duration-300 ease-soft group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#spaces"
+           class="inline-flex items-center rounded-full border border-powder-200 bg-powder-100 px-8 py-4 text-[14.5px] font-semibold tracking-wide text-ink transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:border-powder-400 hover:bg-powder-200">
+          Explore Workspaces
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero photography: one wide plate + one tall plate -->
+    <div class="reveal d3 mt-12 grid gap-4 lg:mt-16 lg:grid-cols-[1.62fr_1fr]">
+      <div class="photo photo-zoom relative rounded-4xl shadow-photo">
+        <span class="hero-drift block h-full w-full">
+          <img src="images2/web/open-workspace.jpg" width="1600" height="1200" fetchpriority="high"
+               alt="The open workspace at Think Tank CoWork: workstations under a high ceiling with an arched window, a large indoor tree, and polished concrete floors."
+               class="aspect-[16/11] lg:aspect-[16/10]">
+        </span>
+        <!-- Floating hospitality detail -->
+        <div class="absolute bottom-5 left-5 hidden rounded-2xl border border-linen-50/40 bg-linen-50/95 px-5 py-4 shadow-lift backdrop-blur-md sm:block">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper">Now touring</p>
+          <p class="mt-1.5 font-serif text-[17px] leading-snug text-ink">Private offices &amp; dedicated desks</p>
+        </div>
+      </div>
+      <div class="photo photo-zoom rounded-4xl shadow-photo">
+        <img src="images2/web/open-bar.jpg" width="675" height="900" loading="eager"
+             alt="A long communal bar-height counter with stools beside a bank of windows in the Think Tank CoWork lounge."
+             class="aspect-[16/11] object-top lg:aspect-auto lg:h-full">
+      </div>
+    </div>
+
+    <!-- Quick facts strip -->
+    <dl class="reveal d4 mt-10 grid grid-cols-2 gap-y-7 border-t border-linen-300 pt-8 sm:grid-cols-4">
+      <div>
+        <dt class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink-400">Hours</dt>
+        <dd class="mt-1.5 font-serif text-[17px] text-ink">Mon&ndash;Fri &middot; 9&ndash;5</dd>
+      </div>
+      <div>
+        <dt class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink-400">No commitment</dt>
+        <dd class="mt-1.5 font-serif text-[17px] text-ink">Month to month memberships</dd>
+      </div>
+      <div>
+        <dt class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink-400">Parking</dt>
+        <dd class="mt-1.5 font-serif text-[17px] text-ink">Free &amp; dedicated</dd>
+      </div>
+      <div>
+        <dt class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink-400">Location</dt>
+        <dd class="mt-1.5 font-serif text-[17px] text-ink">Minutes away from I-95</dd>
+      </div>
+    </dl>
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar" role="region" aria-label="Key facts">
-  <div class="wrap">
-    <div class="stats-grid">
-      <div class="stat reveal"><div class="stat-num">No.&nbsp;1</div><div class="stat-lbl">In Harford County</div></div>
-      <div class="stat reveal d1"><div class="stat-num">4+</div><div class="stat-lbl">Workspace Plans</div></div>
-      <div class="stat reveal d2"><div class="stat-num">5★</div><div class="stat-lbl">Member Experience</div></div>
-      <div class="stat reveal d3"><div class="stat-num">I-95</div><div class="stat-lbl">Minutes Away</div></div>
-    </div>
-  </div>
-</div>
+<!-- ════════════════════════════════════════════════════════════════
+     WORKSPACES — photo-led cards (Bond "workspace solutions" pattern)
+     ════════════════════════════════════════════════════════════════ -->
+<section id="spaces" aria-labelledby="spaces-h" class="scroll-mt-32 py-20 lg:py-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
 
-<!-- FEATURES -->
-<section class="features" id="features" aria-labelledby="feat-h">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="badge badge-blue">Why Think Tank</span>
-      <h2 class="t-h2" id="feat-h">Built for the way you work today</h2>
-      <p class="t-lg muted">Stop settling for coffee shops. Think Tank gives you the professional environment and community to do your best work.</p>
+    <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="flex items-center gap-3 text-kicker font-semibold uppercase text-copper">
+          <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+          Workspaces
+        </p>
+        <h2 id="spaces-h" class="mt-6 max-w-2xl font-serif text-h2 font-normal text-ink">Find the room that fits the work</h2>
+      </div>
+      <p class="max-w-sm text-[14.5px] leading-relaxed text-ink-500">
+        Four ways to work, all fully loaded. Every membership includes the kitchen,
+        high-speed WiFi, and free parking. Contact us for current pricing.
+      </p>
     </div>
 
-    <div class="feat-grid">
-      <div class="card feat-card reveal">
-        <div class="feat-icon ic-blue" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    <div class="mt-14 grid gap-5 lg:grid-cols-2">
+
+      <!-- Private Office -->
+      <article class="group relative flex flex-col overflow-hidden rounded-4xl border border-copper-200 bg-linen-50 shadow-lift transition-all duration-300 ease-soft hover:-translate-y-1.5 hover:border-copper sm:flex-row">
+        <div class="photo relative sm:w-[42%] sm:shrink-0">
+          <img src="images2/web/office-window.jpg" width="675" height="900" loading="lazy" decoding="async"
+               alt="A private office at Think Tank CoWork with a desk, guest seating, and a tall arched window onto the street."
+               class="aspect-[4/3] transition-transform duration-700 ease-soft group-hover:scale-[1.05] sm:aspect-auto sm:h-full">
+          <span class="absolute left-4 top-4 rounded-full bg-copper px-3 py-1 text-[9.5px] font-bold uppercase tracking-[0.14em] text-linen-50 shadow-copper">Most Popular</span>
         </div>
-        <h3 class="t-h3">Premium Tech Infrastructure</h3>
-        <p>Enterprise-grade high-speed WiFi, printing, copying, scanning, and faxing. Every tool you need to run your business at full speed, day one.</p>
-      </div>
-
-      <div class="card feat-card reveal d1">
-        <div class="feat-icon ic-amber" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <div class="flex flex-1 flex-col p-7">
+          <h3 class="font-serif text-[21px] font-normal leading-snug text-ink">Dedicated Office</h3>
+          <p class="mt-2.5 text-[13.5px] leading-relaxed text-ink-500">
+            A fully private, lockable office that's yours alone. Built for teams,
+            client-facing work, or anyone who needs the door to close.
+          </p>
+          <ul role="list" class="mt-5 flex-1 space-y-2 border-t border-linen-300 pt-5">
+            <li class="flex items-start gap-2.5 text-[13px] text-ink-600"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Private lockable office</li>
+            <li class="flex items-start gap-2.5 text-[13px] text-ink-600"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Priority conference access</li>
+            <li class="flex items-start gap-2.5 text-[13px] text-ink-600"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Extended access hours</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex items-center justify-center rounded-full bg-copper px-6 py-3.5 text-[13.5px] font-semibold tracking-wide text-linen-50 shadow-copper transition-colors duration-300 hover:bg-copper-600">Inquire Now</a>
         </div>
-        <h3 class="t-h3">Vibrant Professional Community</h3>
-        <p>Connect with local business leaders, entrepreneurs, and remote pros. Networking events, community gatherings, and real collaboration opportunities.</p>
-      </div>
+      </article>
 
-      <div class="card feat-card reveal d2">
-        <div class="feat-icon ic-purple" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <!-- Desks in the open workspace: three membership options, one room -->
+      <article class="group flex flex-col overflow-hidden rounded-4xl border border-linen-300 bg-linen-50 shadow-soft transition-all duration-300 ease-soft hover:-translate-y-1.5 hover:border-copper hover:shadow-lift sm:flex-row">
+        <div class="photo sm:w-[42%] sm:shrink-0">
+          <img src="images2/web/desks-pods.jpg" width="675" height="900" loading="lazy" decoding="async"
+               alt="Single-occupancy desks separated by partitions, each with a mesh task chair and a monitor."
+               class="aspect-[4/3] transition-transform duration-700 ease-soft group-hover:scale-[1.05] sm:aspect-auto sm:h-full">
         </div>
-        <h3 class="t-h3">Zero Overhead. Full Flexibility.</h3>
-        <p>No long-term leases, no utility bills, no maintenance headaches. Upgrade, downgrade, or switch plans as your business evolves. On your schedule.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- AMENITIES -->
-<section class="amenities" id="amenities" aria-labelledby="amen-h">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="badge badge-blue">Amenities</span>
-      <h2 class="t-h2" id="amen-h">Everything included. No surprises.</h2>
-      <p class="t-lg muted">Every membership comes fully loaded. No hidden fees, no surprises. Just everything you need to show up and get to work.</p>
-    </div>
-
-    <div class="amen-grid">
-      <div class="card amen-card reveal">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
-        <div><h4>High-Speed WiFi</h4><p>Enterprise-grade internet. Slow connections cost business and we know it.</p></div>
-      </div>
-
-      <div class="card amen-card reveal d1">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
-        <div><h4>Print / Copy / Scan / Fax</h4><p>Full business machine center at your fingertips, always.</p></div>
-      </div>
-
-      <div class="card amen-card reveal d2">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
-        <div><h4>Café: Coffee, Snacks &amp; Beer</h4><p>Fuel your focus. Complimentary coffee, snacks, and yes, beer too.</p></div>
-      </div>
-
-      <div class="card amen-card reveal">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="23 11 17 17 14 14"/></svg></div>
-        <div><h4>Conference Room Access</h4><p>Impress clients in a polished meeting space. Member discounts on booking.</p></div>
-      </div>
-
-      <div class="card amen-card reveal d1">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div><h4>Free Dedicated Parking</h4><p>Pull up and park for free. No meters, no garages, no hassle.</p></div>
-      </div>
-
-      <div class="card amen-card reveal d2">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <div><h4>Mail &amp; Address Service</h4><p>Use 16 Bel Air South Pkwy as your official business address.</p></div>
-      </div>
-
-      <div class="card amen-card reveal">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
-        <div><h4>Networking Events</h4><p>Exclusive invitations to member mixers and community gatherings.</p></div>
-      </div>
-
-      <div class="card amen-card reveal d1">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
-        <div><h4>Event Space Access</h4><p>Host workshops, team meetings, or community events in-house.</p></div>
-      </div>
-
-      <div class="card amen-card reveal d2">
-        <div class="amen-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        <div><h4>Local Partner Discounts</h4><p>Exclusive deals with Bel Air area businesses. Perks that go beyond these walls.</p></div>
-      </div>
+        <div class="flex flex-1 flex-col p-7">
+          <h3 class="font-serif text-[21px] font-normal leading-snug text-ink">A Desk in the Open Workspace</h3>
+          <p class="mt-2.5 text-[13.5px] leading-relaxed text-ink-500">
+            The same desks, chairs, and amenities either way. What changes is how
+            much of the week the desk is yours. Three ways to take one:
+          </p>
+          <ul role="list" class="mt-5 flex-1 space-y-4 border-t border-linen-300 pt-5">
+            <li class="flex items-start gap-2.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>
+                <span class="block text-[13.5px] font-semibold text-ink">Dedicated Workspace</span>
+                <span class="block text-[12.5px] leading-relaxed text-ink-500">Your own reserved desk, the same spot every time. Extended access hours and conference room discounts.</span>
+              </span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>
+                <span class="block text-[13.5px] font-semibold text-ink">Unshared Desk</span>
+                <span class="block text-[12.5px] leading-relaxed text-ink-500">A single-occupancy desk in a shared room, never used by anyone else during business hours.</span>
+              </span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>
+                <span class="block text-[13.5px] font-semibold text-ink">Part-Time Desk</span>
+                <span class="block text-[12.5px] leading-relaxed text-ink-500">Hot-desk access Monday to Friday, 9am to 5pm, with full community access.</span>
+              </span>
+            </li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex items-center justify-center rounded-full border border-powder-200 bg-powder-100 px-6 py-3.5 text-[13.5px] font-semibold tracking-wide text-ink transition-all duration-300 hover:border-powder-400 hover:bg-powder-200">Inquire Now</a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- ════════════════════════════════════════════════════════════════
+     AMENITIES — showcase image + list, then a photo grid
+     ════════════════════════════════════════════════════════════════ -->
+<section id="amenities" aria-labelledby="amen-h" class="scroll-mt-32 border-y border-powder-200/60 bg-powder-50 py-20 lg:py-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
 
-<!-- MEMBERSHIP -->
-<section class="membership" id="membership" aria-labelledby="mem-h">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="badge badge-amber">Membership</span>
-      <h2 class="t-h2" id="mem-h">Find your perfect space</h2>
-      <p class="t-lg muted">Whether you need a private office or occasional desk time, there's a plan built for your workflow. Contact us for current pricing.</p>
-    </div>
+    <!-- Showcase split -->
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal photo photo-zoom order-2 rounded-4xl shadow-photo lg:order-1">
+        <img src="images2/web/cafe-tables.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="The Think Tank CoWork kitchen: dark cabinetry, a coffee station and microwave, with caf&eacute;-style tables on a chequerboard tile floor."
+             class="aspect-[4/3]">
+      </div>
 
-    <div class="mem-grid">
-      <!-- Dedicated Office -->
-      <div class="card mem-card featured reveal">
-        <span class="pop-tag">Most Popular</span>
-        <div class="mem-icon ic-blue" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-        </div>
-        <h3>Dedicated Office</h3>
-        <p>A fully private, lockable office that's yours alone. Perfect for teams, client-facing businesses, or anyone who demands total privacy.</p>
-        <ul class="perks" role="list">
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Private lockable office</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>All amenities included</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Priority conference room access</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Extended access hours</li>
+      <div class="reveal d1 order-1 lg:order-2">
+        <p class="flex items-center gap-3 text-kicker font-semibold uppercase text-copper">
+          <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+          Amenities
+        </p>
+        <h2 id="amen-h" class="mt-6 font-serif text-h2 font-normal text-ink">Everything included.<br>No surprises.</h2>
+        <p class="mt-5 max-w-[32rem] text-lede text-ink-500">
+          Every membership comes fully loaded. No hidden fees, no fine print.
+          Coffee is on, the printer works, and parking is always free.
+        </p>
+
+        <ul role="list" class="mt-9 grid gap-x-8 gap-y-4 border-t border-powder-200 pt-8 sm:grid-cols-2">
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Enterprise-grade WiFi</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Print / copy / scan / fax</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Kitchen: coffee, snacks &amp; beer</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Conference room access</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Free dedicated parking</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Mail &amp; address service</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Networking events</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Local partner discounts</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Inquire Now</a>
+      </div>
+    </div>
+
+    <!-- Amenity photo grid — showing, not telling -->
+    <div class="mt-16 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
+
+      <figure class="reveal photo photo-zoom group relative rounded-4xl shadow-soft">
+        <img src="images2/web/cafe-kitchen.jpg" width="1600" height="1200" loading="lazy" decoding="async"
+             alt="The second kitchen: an island with bar stools, a coffee station, a full-size refrigerator, and floor-to-ceiling windows."
+             class="aspect-[4/5]">
+        <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 via-ink-900/25 to-transparent p-6 pt-16">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper-300">Kitchen</p>
+          <p class="mt-1.5 font-serif text-[19px] leading-snug text-linen-50">Coffee, snacks &amp; beer, all free</p>
+        </figcaption>
+      </figure>
+
+      <figure class="reveal d1 photo photo-zoom group relative rounded-4xl shadow-soft">
+        <img src="images2/web/mailroom.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="A wall of mail slots holding members' post in the Think Tank CoWork mail room."
+             class="aspect-[4/5]">
+        <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 via-ink-900/25 to-transparent p-6 pt-16">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper-300">Mail Service</p>
+          <p class="mt-1.5 font-serif text-[19px] leading-snug text-linen-50">Your official business address</p>
+        </figcaption>
+      </figure>
+
+      <figure class="reveal d2 photo photo-zoom group relative rounded-4xl shadow-soft">
+        <img src="images2/web/lounge-chairs.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="A lounge corner with two white armchairs and a live-edge wood coffee table."
+             class="aspect-[4/5]">
+        <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 via-ink-900/25 to-transparent p-6 pt-16">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper-300">Lounge</p>
+          <p class="mt-1.5 font-serif text-[19px] leading-snug text-linen-50">Somewhere softer to think</p>
+        </figcaption>
+      </figure>
+
+      <figure class="reveal photo photo-zoom group relative rounded-4xl shadow-soft">
+        <img src="images2/web/cafe-coffee.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="A business centre counter with coffee machine, water cooler, and printer."
+             class="aspect-[4/3]">
+        <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 via-ink-900/25 to-transparent p-6 pt-16">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper-300">Business Centre</p>
+          <p class="mt-1.5 font-serif text-[19px] leading-snug text-linen-50">Print, copy, scan &amp; fax</p>
+        </figcaption>
+      </figure>
+
+      <figure class="reveal d1 photo photo-zoom group relative rounded-4xl shadow-soft">
+        <img src="images2/web/reception.jpg" width="1600" height="1200" loading="lazy" decoding="async"
+             alt="The reception desk at Think Tank CoWork, faced in reclaimed wood beneath pendant lighting."
+             class="aspect-[4/3]">
+        <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 via-ink-900/25 to-transparent p-6 pt-16">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper-300">Reception</p>
+          <p class="mt-1.5 font-serif text-[19px] leading-snug text-linen-50">Live answering &amp; a front desk</p>
+        </figcaption>
+      </figure>
+
+      <figure class="reveal d2 photo photo-zoom group relative rounded-4xl shadow-soft">
+        <img src="images2/web/exterior-signage.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="The Think Tank CoWork entrance with free parking spaces directly outside."
+             class="aspect-[4/3]">
+        <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 via-ink-900/25 to-transparent p-6 pt-16">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper-300">Parking</p>
+          <p class="mt-1.5 font-serif text-[19px] leading-snug text-linen-50">Free, dedicated, at the door</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     PATIO — the restaurant's outdoor space next door
+     ════════════════════════════════════════════════════════════════ -->
+<section aria-labelledby="patio-h" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
+
+      <div class="reveal">
+        <p class="flex items-center gap-3 text-kicker font-semibold uppercase text-copper">
+          <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+          Right Next Door
+        </p>
+        <h2 id="patio-h" class="mt-6 font-serif text-h2 font-normal text-ink">Your 3pm meeting, outside</h2>
+        <p class="mt-5 max-w-[30rem] text-lede text-ink-500">
+          The restaurant next door keeps a proper outdoor space: lawn seating,
+          shaded tables, and cornhole. It is where our members take the informal
+          catch-up, the client lunch, and the Friday afternoon that ran long.
+        </p>
+        <ul role="list" class="mt-9 space-y-3 border-t border-linen-300 pt-8">
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Shaded table seating and umbrellas</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>Lawn games for member events</li>
+          <li class="flex items-start gap-3 text-[14.5px] text-ink-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-1 shrink-0 text-copper"><polyline points="20 6 9 17 4 12"/></svg>A short walk from your desk</li>
+        </ul>
       </div>
 
-      <!-- Dedicated Workspace -->
-      <div class="card mem-card reveal d1">
-        <div class="mem-icon ic-purple" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-        </div>
-        <h3>Dedicated Workspace</h3>
-        <p>Your own reserved desk in our open workspace. Same spot every time. Set it up exactly how you like and leave your gear.</p>
-        <ul class="perks" role="list">
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Reserved personal desk</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>All amenities included</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Conference room discounts</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Extended access hours</li>
-        </ul>
-        <a href="#contact" class="btn btn-ghost">Inquire Now</a>
-      </div>
-
-      <!-- Unshared Desk -->
-      <div class="card mem-card reveal d2">
-        <div class="mem-icon ic-amber" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <h3>Unshared Desk</h3>
-        <p>A single-occupancy desk in a shared environment. Your desk won't be shared with anyone. A personal workspace during standard business hours.</p>
-        <ul class="perks" role="list">
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Solo desk, no sharing</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Core amenities included</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Community access</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Business hours access</li>
-        </ul>
-        <a href="#contact" class="btn btn-ghost">Inquire Now</a>
-      </div>
-
-      <!-- Part-Time Desk -->
-      <div class="card mem-card reveal d3">
-        <div class="mem-icon ic-green" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <h3>Part-Time Desk</h3>
-        <p>Hot-desk access M–F during standard business hours. Perfect for those who need a professional home base without a full-time commitment.</p>
-        <ul class="perks" role="list">
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Flexible hot-desking</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Core amenities included</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Community access</li>
-          <li class="perk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Mon–Fri, 9am–5pm</li>
-        </ul>
-        <a href="#contact" class="btn btn-ghost">Inquire Now</a>
+      <div class="reveal d1 photo photo-zoom rounded-4xl shadow-photo">
+        <img src="images2/web/patio-lawn.jpg" width="1600" height="1200" loading="lazy" decoding="async"
+             alt="The outdoor patio next door: turf lawn with teal bistro tables and chairs, shade umbrellas, a wood fence, and cornhole boards."
+             class="aspect-[4/3] lg:aspect-[3/2]">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ADD-ONS -->
-<section class="addons" aria-labelledby="addon-h">
-  <div class="wrap">
-    <div class="addons-box reveal card card-no-hover">
-      <div class="addons-top">
-        <div>
-          <span class="badge badge-blue" style="margin-bottom:12px;">Add-On Services</span>
-          <h3 class="t-h3" id="addon-h">Supercharge your membership</h3>
-        </div>
-        <p>Bolt on exactly what your business needs. No bundles, no fluff. Just the services that matter.</p>
+<!-- ════════════════════════════════════════════════════════════════
+     MEETING ROOMS
+     ════════════════════════════════════════════════════════════════ -->
+<section id="meetings" aria-labelledby="meet-h" class="scroll-mt-32 border-y border-linen-300 bg-linen-200/50 py-20 lg:py-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
+
+    <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="flex items-center gap-3 text-kicker font-semibold uppercase text-copper">
+          <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+          Meeting Rooms
+        </p>
+        <h2 id="meet-h" class="mt-6 max-w-xl font-serif text-h2 font-normal text-ink">Rooms that close the deal</h2>
       </div>
-      <div class="addon-list">
-        <div class="addon-item">
-          <div class="addon-price">$50–$69<span>/mo</span></div>
-          <div class="addon-name">Mail &amp; Address Service</div>
-          <div class="addon-desc">Use 16 Bel Air South Parkway as your official business address. Mail handling included.</div>
-        </div>
-        <div class="addon-item">
-          <div class="addon-price">$99<span>/mo</span></div>
-          <div class="addon-name">Reception / Live Answering</div>
-          <div class="addon-desc">Professional live answering for your business calls. Never miss an important inquiry.</div>
-        </div>
-        <div class="addon-item">
-          <div class="addon-price">$50+<span>/hr</span></div>
-          <div class="addon-name">Conference Room Rental</div>
-          <div class="addon-desc">Fully equipped conference room by the hour. Perfect for client meetings and team sessions.</div>
-        </div>
+      <p class="max-w-sm text-[14.5px] leading-relaxed text-ink-500">
+        Boardroom seating, wall-mounted displays, and video conferencing.
+        Members book at a discount; non-members from $50 per hour.
+      </p>
+    </div>
+
+    <!-- Feature plate + supporting plates -->
+    <div class="mt-14 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
+      <figure class="reveal photo photo-zoom relative rounded-4xl shadow-photo">
+        <img src="images2/web/conference-main.jpg" width="1600" height="1200" loading="lazy" decoding="async"
+             alt="The main conference room: a long table with black leather chairs, exposed brick, and a wall display showing the Think Tank CoWork logo."
+             class="aspect-[4/3] lg:aspect-[16/11]">
+        <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 via-ink-900/25 to-transparent p-7 pt-20">
+          <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-copper-300">The Boardroom</p>
+          <p class="mt-1.5 max-w-md font-serif text-[22px] leading-snug text-linen-50">Seats ten, with display and video conferencing</p>
+        </figcaption>
+      </figure>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+        <figure class="reveal d1 photo photo-zoom relative rounded-4xl shadow-soft">
+          <img src="images2/web/conference-white.jpg" width="900" height="675" loading="lazy" decoding="async"
+               alt="A second conference room with a white table, white leather chairs, brick wall, and abstract artwork."
+               class="aspect-[4/3] lg:aspect-[16/10]">
+          <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/75 to-transparent p-5 pt-14">
+            <p class="font-serif text-[17px] text-linen-50">The Gallery Room</p>
+          </figcaption>
+        </figure>
+        <figure class="reveal d2 photo photo-zoom relative rounded-4xl shadow-soft">
+          <img src="images2/web/meeting-small.jpg" width="900" height="675" loading="lazy" decoding="async"
+               alt="A small meeting room with a four-person table, whiteboard, and wave artwork."
+               class="aspect-[4/3] lg:aspect-[16/10]">
+          <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/75 to-transparent p-5 pt-14">
+            <p class="font-serif text-[17px] text-linen-50">The Huddle Room</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Add-on services -->
+    <div class="reveal mt-16 grid gap-4 md:grid-cols-3 lg:mt-20">
+      <div class="rounded-4xl border border-linen-300 bg-linen-50 p-8 shadow-soft transition-all duration-300 ease-soft hover:border-copper hover:shadow-lift">
+        <p class="font-serif text-[28px] leading-none text-copper">$50&ndash;$69<span class="ml-1 font-sans text-[13px] font-medium text-ink-400">/mo</span></p>
+        <h3 class="mt-4 text-[15px] font-semibold text-ink">Mail &amp; Address Service</h3>
+        <p class="mt-2 text-[13.5px] leading-relaxed text-ink-500">Use 16 Bel Air South Parkway as your official business address. Mail handling included.</p>
+      </div>
+      <div class="rounded-4xl border border-linen-300 bg-linen-50 p-8 shadow-soft transition-all duration-300 ease-soft hover:border-copper hover:shadow-lift">
+        <p class="font-serif text-[28px] leading-none text-copper">$99<span class="ml-1 font-sans text-[13px] font-medium text-ink-400">/mo</span></p>
+        <h3 class="mt-4 text-[15px] font-semibold text-ink">Reception / Live Answering</h3>
+        <p class="mt-2 text-[13.5px] leading-relaxed text-ink-500">Professional live answering for your business calls. Never miss an important inquiry.</p>
+      </div>
+      <div class="rounded-4xl border border-linen-300 bg-linen-50 p-8 shadow-soft transition-all duration-300 ease-soft hover:border-copper hover:shadow-lift">
+        <p class="font-serif text-[28px] leading-none text-copper">$50+<span class="ml-1 font-sans text-[13px] font-medium text-ink-400">/hr</span></p>
+        <h3 class="mt-4 text-[15px] font-semibold text-ink">Conference Room Rental</h3>
+        <p class="mt-2 text-[13.5px] leading-relaxed text-ink-500">Fully equipped conference room by the hour. Perfect for client meetings and team sessions.</p>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- ════════════════════════════════════════════════════════════════
+     GALLERY — bento grid, click to enlarge
+     ════════════════════════════════════════════════════════════════ -->
+<section id="gallery" aria-labelledby="gal-h" class="scroll-mt-32 py-20 lg:py-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
 
-<!-- LOCATION -->
-<section class="location" id="location" aria-labelledby="loc-h">
-  <div class="wrap">
-    <div class="loc-grid">
-      <div class="loc-content reveal">
-        <span class="badge badge-blue" style="margin-bottom:20px;">Location</span>
-        <h2 class="t-h2" id="loc-h">Strategically positioned in Bel Air</h2>
-        <p class="t-lg muted">Situated in the heart of Harford County, minutes from Aberdeen Proving Ground, I-95, and downtown Bel Air.</p>
+    <div class="reveal mx-auto max-w-prose text-center">
+      <p class="flex items-center justify-center gap-3 text-kicker font-semibold uppercase text-copper">
+        <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+        Gallery
+        <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+      </p>
+      <h2 id="gal-h" class="mt-6 font-serif text-h2 font-normal text-ink">Take a look around</h2>
+      <p class="mx-auto mt-5 max-w-[34rem] text-lede text-ink-500">
+        Twelve rooms, one building, free parking at the door.
+        Select any photograph to view it larger.
+      </p>
+    </div>
 
-        <div class="loc-details">
-          <div class="loc-detail">
-            <div class="loc-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div><strong>16 Bel Air South Parkway</strong><span>Bel Air, Maryland 21015</span></div>
+    <!-- 4-col bento; first tile spans 2x2 -->
+    <div id="gallery-grid" class="mt-14 grid auto-rows-[168px] grid-cols-2 gap-3.5 sm:auto-rows-[190px] lg:mt-16 lg:grid-cols-4 lg:gap-4">
+
+      <button type="button" class="photo photo-zoom col-span-2 row-span-2 group relative rounded-4xl shadow-soft" data-lb-src="images2/web/reception.jpg" data-lb-cap="Reception, a reclaimed-wood front desk beneath pendant lighting">
+        <img src="images2/web/reception.jpg" width="1600" height="1200" loading="lazy" decoding="async"
+             alt="Reception at Think Tank CoWork: a reclaimed-wood front desk beneath pendant lighting, with a wall display and high ceilings." class="h-full">
+        <span class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/70 to-transparent p-6 pt-16 text-left">
+          <span class="block font-serif text-[19px] text-linen-50">Reception</span>
+        </span>
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/office-arched.jpg" data-lb-cap="A private office beneath the building's arched windows">
+        <img src="images2/web/office-arched.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="A private office with green velvet chairs beneath tall arched windows, with a member working at a desk." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/cafe-tables.jpg" data-lb-cap="The kitchen tables, on the patterned tile floor">
+        <img src="images2/web/cafe-tables.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="Kitchen high-top tables with metal chairs on a chequerboard tile floor." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/lobby.jpg" data-lb-cap="The entry lobby and welcome desk">
+        <img src="images2/web/lobby.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="The entry lobby with globe pendant lights, a welcome desk, and a wall display showing the Think Tank logo." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/conference-wide.jpg" data-lb-cap="The Gallery Room, seating eight">
+        <img src="images2/web/conference-wide.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="A wide view of a conference room with a chandelier, coffered ceiling, brick wall, and white leather chairs." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/desks-cubicles.jpg" data-lb-cap="Dedicated workstations">
+        <img src="images2/web/desks-cubicles.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="Dedicated workstations with grey privacy partitions beneath a decorative pendant light." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/cafe-seating.jpg" data-lb-cap="The kitchen seating area">
+        <img src="images2/web/cafe-seating.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="The kitchen seating area, looking toward the dark cabinetry and coffee station." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/office-window.jpg" data-lb-cap="A private office with a street view">
+        <img src="images2/web/office-window.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="A private office with a wood desk, task chair, and an arched window looking onto the parking lot." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/office-lounge.jpg" data-lb-cap="A suite lounge with tufted seating">
+        <img src="images2/web/office-lounge.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="A suite lounge with green velvet chairs, a tufted leather bench, and arched windows." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom row-span-2 rounded-4xl shadow-soft" data-lb-src="images2/web/office-suite.jpg" data-lb-cap="Suite 211, a private office with its own printer">
+        <img src="images2/web/office-suite.jpg" width="675" height="900" loading="lazy" decoding="async"
+             alt="Suite 211: a compact private office with a desk, task chair, and its own printer." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom rounded-4xl shadow-soft" data-lb-src="images2/web/offices-corridor.jpg" data-lb-cap="The private office corridor">
+        <img src="images2/web/offices-corridor.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="A corridor of glass-fronted private offices with plants and a leaning mirror." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom rounded-4xl shadow-soft" data-lb-src="images2/web/open-entry.jpg" data-lb-cap="The open workspace by the storefront windows">
+        <img src="images2/web/open-entry.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="Open workspace desks beside tall storefront windows and exposed brick." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom rounded-4xl shadow-soft" data-lb-src="images2/web/lounge-chairs.jpg" data-lb-cap="A quiet lounge corner">
+        <img src="images2/web/lounge-chairs.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="A quiet lounge corner with two white armchairs and a live-edge wood table." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom rounded-4xl shadow-soft" data-lb-src="images2/web/office-desk.jpg" data-lb-cap="A furnished private office, move-in ready">
+        <img src="images2/web/office-desk.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="A furnished private office with a wood table desk, task chair, bookshelf, and wall clock." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom rounded-4xl shadow-soft" data-lb-src="images2/web/conference-detail.jpg" data-lb-cap="The boardroom, set for a client meeting">
+        <img src="images2/web/conference-detail.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="A conference table set with water glasses and a carafe, with the Think Tank logo on the wall display." class="h-full">
+      </button>
+
+      <button type="button" class="photo photo-zoom rounded-4xl shadow-soft" data-lb-src="images2/web/meeting-inuse.jpg" data-lb-cap="A team on a video call in the glass-walled meeting room">
+        <img src="images2/web/meeting-inuse.jpg" width="900" height="675" loading="lazy" decoding="async"
+             alt="Members on a video call in a glass-walled meeting room with exposed brick." class="h-full">
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     LOCATION — exterior photography + map
+     ════════════════════════════════════════════════════════════════ -->
+<section id="location" aria-labelledby="loc-h" class="scroll-mt-32 border-y border-powder-200/60 bg-powder-50 py-20 lg:py-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
+
+    <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal">
+        <p class="flex items-center gap-3 text-kicker font-semibold uppercase text-copper">
+          <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+          Location
+        </p>
+        <h2 id="loc-h" class="mt-6 font-serif text-h2 font-normal text-ink">Strategically positioned in Bel Air</h2>
+        <p class="mt-5 max-w-[32rem] text-lede text-ink-500">
+          In the heart of Harford County, minutes from Aberdeen Proving
+          Ground, I-95, and downtown Bel Air, with free parking at the door.
+        </p>
+
+        <div class="mt-10 space-y-5 border-t border-powder-200 pt-9">
+          <div class="flex items-start gap-4">
+            <span aria-hidden="true" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-copper-50 text-copper">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div>
+              <p class="font-serif text-[17px] text-ink">16 Bel Air South Parkway</p>
+              <p class="mt-0.5 text-[13.5px] text-ink-500">Bel Air, Maryland 21015</p>
+            </div>
           </div>
-          <div class="loc-detail">
-            <div class="loc-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-            <div><strong>410-844-4400</strong><span>Give us a call anytime</span></div>
+          <div class="flex items-start gap-4">
+            <span aria-hidden="true" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-copper-50 text-copper">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </span>
+            <div>
+              <p class="font-serif text-[17px] text-ink">410-844-4400</p>
+              <p class="mt-0.5 text-[13.5px] text-ink-500">Give us a call anytime</p>
+            </div>
           </div>
-          <div class="loc-detail">
-            <div class="loc-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div><strong>jane@thinktankcowork.com</strong><span>Typical response within 24 hours</span></div>
+          <div class="flex items-start gap-4">
+            <span aria-hidden="true" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-copper-50 text-copper">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <div>
+              <p class="font-serif text-[17px] text-ink">jane@thinktankcowork.com</p>
+              <p class="mt-0.5 text-[13.5px] text-ink-500">Typical response within 24 hours</p>
+            </div>
           </div>
         </div>
 
-        <p class="t-xs" style="color:var(--txt-3);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-bottom:12px;">Nearby</p>
-        <div class="prox-tags">
-          <span class="prox-tag">Aberdeen Proving Ground</span>
-          <span class="prox-tag">Downtown Bel Air</span>
-          <span class="prox-tag">I-95 Corridor</span>
-          <span class="prox-tag">Harford County</span>
-          <span class="prox-tag">Route 1</span>
-        </div>
+        <p class="mt-10 text-[10.5px] font-semibold uppercase tracking-[0.2em] text-ink-400">Nearby</p>
+        <ul role="list" class="mt-4 flex flex-wrap gap-2">
+          <li class="rounded-full border border-powder-200 bg-powder-100 px-4 py-1.5 text-[12px] font-medium text-ink-600">Aberdeen Proving Ground</li>
+          <li class="rounded-full border border-powder-200 bg-powder-100 px-4 py-1.5 text-[12px] font-medium text-ink-600">Downtown Bel Air</li>
+          <li class="rounded-full border border-powder-200 bg-powder-100 px-4 py-1.5 text-[12px] font-medium text-ink-600">I-95 Corridor</li>
+          <li class="rounded-full border border-powder-200 bg-powder-100 px-4 py-1.5 text-[12px] font-medium text-ink-600">Harford County</li>
+          <li class="rounded-full border border-powder-200 bg-powder-100 px-4 py-1.5 text-[12px] font-medium text-ink-600">Route 1</li>
+        </ul>
 
-        <a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+        <a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer"
+           class="mt-9 inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-linen-50 px-7 py-3.5 text-[13.5px] font-semibold tracking-wide text-ink transition-all duration-300 ease-soft hover:border-copper hover:text-copper">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           Get Directions
         </a>
       </div>
 
-      <div class="map-frame reveal d2">
-        <iframe
-          title="Think Tank CoWork on Google Maps"
-          src="https://www.google.com/maps?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015&output=embed"
-          allowfullscreen loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+      <!-- Exterior photography + map -->
+      <div class="reveal d1 space-y-4">
+        <div class="photo photo-zoom rounded-4xl shadow-photo">
+          <img src="images2/web/exterior-dusk.jpg" width="900" height="675" loading="lazy" decoding="async"
+               alt="The Think Tank CoWork building exterior: brick and stone facade with signage, red patio umbrellas, and planters."
+               class="aspect-[16/10]">
+        </div>
+        <div class="overflow-hidden rounded-4xl border border-linen-300 shadow-soft">
+          <iframe
+            title="Think Tank CoWork on Google Maps"
+            src="https://www.google.com/maps?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015&output=embed"
+            class="aspect-[16/10] w-full border-0"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- ════════════════════════════════════════════════════════════════
+     CONTACT
+     ════════════════════════════════════════════════════════════════ -->
+<section id="contact" aria-labelledby="con-h" class="scroll-mt-32 py-20 lg:py-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
+    <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
 
-<!-- CONTACT -->
-<section class="contact" id="contact" aria-labelledby="con-h">
-  <div class="wrap">
-    <div class="con-grid">
-      <div class="con-info reveal">
-        <span class="badge badge-blue" style="margin-bottom:20px;">Get In Touch</span>
-        <h2 class="t-h2" id="con-h">Ready to make<br>your move?</h2>
-        <p class="t-lg muted">Whether you have questions or you're ready to sign up, reach out and we'll find the perfect space for you.</p>
+      <div class="reveal">
+        <p class="flex items-center gap-3 text-kicker font-semibold uppercase text-copper">
+          <span class="h-px w-9 bg-copper/45" aria-hidden="true"></span>
+          Get In Touch
+        </p>
+        <h2 id="con-h" class="mt-6 font-serif text-h2 font-normal text-ink">Ready to make<br>your move?</h2>
+        <p class="mt-5 max-w-[30rem] text-lede text-ink-500">
+          Book a tour and we'll walk you through every room in the building.
+          Ten minutes, no pressure.
+        </p>
 
-        <div class="con-links">
-          <a href="tel:4108444400" class="con-link">
-            <div class="con-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-            <div><strong>410-844-4400</strong><small>Mon–Fri, 9am–5pm</small></div>
+        <div class="mt-9 photo photo-zoom rounded-4xl shadow-photo">
+          <img src="images2/web/reception-desk.jpg" width="900" height="675" loading="lazy" decoding="async"
+               alt="The Think Tank CoWork front desk with fresh flowers, ready to greet visitors."
+               class="aspect-[16/10]">
+        </div>
+
+        <div class="mt-8 space-y-3 border-t border-linen-300 pt-8">
+          <a href="tel:4108444400" class="group flex items-center gap-4 rounded-2xl p-3 transition-colors duration-300 hover:bg-linen-200/60">
+            <span aria-hidden="true" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-linen-50 text-copper shadow-soft transition-colors duration-300 group-hover:bg-copper group-hover:text-linen-50">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </span>
+            <span>
+              <span class="block text-[15px] font-medium text-ink">410-844-4400</span>
+              <span class="block text-[12.5px] text-ink-400">Mon&ndash;Fri, 9am&ndash;5pm</span>
+            </span>
           </a>
-          <a href="mailto:jane@thinktankcowork.com" class="con-link">
-            <div class="con-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div><strong>jane@thinktankcowork.com</strong><small>We respond within 24 hours</small></div>
-          </a>
-          <a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer" class="con-link">
-            <div class="con-ic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div><strong>16 Bel Air South Parkway</strong><small>Bel Air, Maryland 21015</small></div>
+          <a href="mailto:jane@thinktankcowork.com" class="group flex items-center gap-4 rounded-2xl p-3 transition-colors duration-300 hover:bg-linen-200/60">
+            <span aria-hidden="true" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-linen-50 text-copper shadow-soft transition-colors duration-300 group-hover:bg-copper group-hover:text-linen-50">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <span>
+              <span class="block text-[15px] font-medium text-ink">jane@thinktankcowork.com</span>
+              <span class="block text-[12.5px] text-ink-400">We respond within 24 hours</span>
+            </span>
           </a>
         </div>
 
-        <div class="socials" aria-label="Social media">
-          <a href="https://www.facebook.com/ThinkTankCoWork" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+        <div aria-label="Social media" class="mt-7 flex gap-2.5">
+          <a href="https://www.facebook.com/ThinkTankCoWork" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+             class="flex h-11 w-11 items-center justify-center rounded-full border border-linen-300 bg-linen-50 text-ink-500 transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:border-copper hover:text-copper">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
           </a>
-          <a href="https://www.linkedin.com/in/think-tank-cowork-b017101b1" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/think-tank-cowork-b017101b1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+             class="flex h-11 w-11 items-center justify-center rounded-full border border-linen-300 bg-linen-50 text-ink-500 transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:border-copper hover:text-copper">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- FORM -->
-      <div class="card form-wrap reveal d1">
+      <!-- ── INQUIRY FORM ── -->
+      <div class="reveal d1 rounded-4xl border border-linen-300 bg-linen-50 p-7 shadow-lift sm:p-10 lg:sticky lg:top-[calc(var(--banner-h)+var(--nav-h)+2rem)]">
         <div id="formBody">
-          <div class="form-title">Send an Inquiry</div>
-          <div class="form-sub">Fill this out and we'll get back to you within one business day.</div>
+          <h3 class="font-serif text-[25px] font-normal text-ink">Book a Tour</h3>
+          <p class="mt-2 text-[13.5px] text-ink-500">Fill this out and we'll get back to you within one business day.</p>
 
-          <form id="theForm" novalidate aria-label="Inquiry form">
-            <div class="form-row">
-              <div class="field">
-                <label for="fName">First Name <span class="req" aria-hidden="true">*</span></label>
-                <input class="inp" type="text" id="fName" name="firstName" placeholder="Jane" required autocomplete="given-name" aria-required="true">
+          <form id="theForm" novalidate aria-label="Tour and inquiry form" class="mt-8">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="fName" class="mb-2 block text-[12.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">First Name <span class="text-copper" aria-hidden="true">*</span></label>
+                <input class="field-input" type="text" id="fName" name="firstName" placeholder="Jane" required autocomplete="given-name" aria-required="true">
               </div>
-              <div class="field">
-                <label for="lName">Last Name <span class="req" aria-hidden="true">*</span></label>
-                <input class="inp" type="text" id="lName" name="lastName" placeholder="Smith" required autocomplete="family-name" aria-required="true">
+              <div>
+                <label for="lName" class="mb-2 block text-[12.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">Last Name <span class="text-copper" aria-hidden="true">*</span></label>
+                <input class="field-input" type="text" id="lName" name="lastName" placeholder="Smith" required autocomplete="family-name" aria-required="true">
               </div>
             </div>
 
-            <div class="field">
-              <label for="fEmail">Email <span class="req" aria-hidden="true">*</span></label>
-              <input class="inp" type="email" id="fEmail" name="email" placeholder="jane@company.com" required autocomplete="email" aria-required="true">
+            <div class="mt-4">
+              <label for="fEmail" class="mb-2 block text-[12.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">Email <span class="text-copper" aria-hidden="true">*</span></label>
+              <input class="field-input" type="email" id="fEmail" name="email" placeholder="jane@company.com" required autocomplete="email" aria-required="true">
             </div>
 
-            <div class="field">
-              <label for="fPhone">Phone</label>
-              <input class="inp" type="tel" id="fPhone" name="phone" placeholder="(410) 555-0123" autocomplete="tel">
+            <div class="mt-4">
+              <label for="fPhone" class="mb-2 block text-[12.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">Phone</label>
+              <input class="field-input" type="tel" id="fPhone" name="phone" placeholder="(410) 555-0123" autocomplete="tel">
             </div>
 
-            <div class="field">
-              <label for="fPlan">Interested In <span class="req" aria-hidden="true">*</span></label>
-              <select class="inp" id="fPlan" name="plan" required aria-required="true">
+            <div class="mt-4">
+              <label for="fPlan" class="mb-2 block text-[12.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">Interested In <span class="text-copper" aria-hidden="true">*</span></label>
+              <select class="field-input" id="fPlan" name="plan" required aria-required="true">
                 <option value="" disabled selected>Select a membership type</option>
                 <option value="dedicated-office">Dedicated Office</option>
                 <option value="dedicated-workspace">Dedicated Workspace</option>
@@ -1075,44 +1114,67 @@
               </select>
             </div>
 
-            <div class="field">
-              <label for="fMsg">Message</label>
-              <textarea class="inp" id="fMsg" name="message" rows="4" placeholder="Tell us a bit about yourself and what you're looking for…"></textarea>
+            <div class="mt-4">
+              <label for="fMsg" class="mb-2 block text-[12.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">Message</label>
+              <textarea class="field-input" id="fMsg" name="message" rows="4" placeholder="Tell us a bit about yourself and what you're looking for&hellip;"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
-              <span id="btnLabel">Send Inquiry</span>
+            <button type="submit" id="submitBtn"
+                    class="mt-7 flex w-full items-center justify-center gap-2.5 rounded-full bg-copper px-8 py-4 text-[14.5px] font-semibold tracking-wide text-linen-50 shadow-copper transition-all duration-300 ease-soft hover:bg-copper-600 disabled:cursor-not-allowed disabled:opacity-70">
+              <span id="btnLabel">Request My Tour</span>
               <svg id="btnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
+
+            <p class="mt-4 text-center text-[12px] text-ink-400">No spam, ever. We'll only use your details to answer your inquiry.</p>
           </form>
         </div>
 
-        <div class="success-state" id="successState" role="alert" aria-live="polite" tabindex="-1">
-          <div class="success-ic" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h3>Inquiry Sent!</h3>
-          <p>Thanks for reaching out. We'll be in touch within one business day at the email you provided.</p>
-          <a href="mailto:jane@thinktankcowork.com" class="btn btn-ghost" style="margin-top:4px;">Or email us directly</a>
+        <div id="successState" role="alert" aria-live="polite" tabindex="-1" class="hidden flex-col items-center gap-4 px-6 py-14 text-center [&.show]:flex">
+          <span aria-hidden="true" class="flex h-16 w-16 items-center justify-center rounded-full bg-copper-100 text-copper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <h3 class="font-serif text-[25px] font-normal text-ink">Request sent</h3>
+          <p class="max-w-[22rem] text-[14.5px] leading-relaxed text-ink-500">
+            Thanks for reaching out. We'll be in touch within one business day at the email you provided.
+          </p>
+          <a href="mailto:jane@thinktankcowork.com"
+             class="mt-2 inline-flex items-center rounded-full border border-ink/15 px-7 py-3 text-[13.5px] font-semibold tracking-wide text-ink transition-all duration-300 hover:border-copper hover:text-copper">
+            Or email us directly
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA STRIP -->
-<section class="cta-strip" aria-labelledby="cta-h">
-  <div class="wrap">
-    <div class="cta-box reveal">
-      <span class="badge badge-blue" style="margin-bottom:20px;">Start Today</span>
-      <h2 class="t-h2" id="cta-h">Your office is waiting.</h2>
-      <p class="t-lg muted">Join Harford County's most forward-thinking professional community.<br>Flexible plans, zero long-term commitments, all the amenities.</p>
-      <div class="cta-btns">
-        <a href="#contact" class="btn btn-primary btn-lg">Reserve Your Space</a>
-        <a href="tel:4108444400" class="btn btn-ghost btn-lg">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Call Us
-        </a>
+<!-- ════════════════════════════════════════════════════════════════
+     CTA — photographic band
+     ════════════════════════════════════════════════════════════════ -->
+<section aria-labelledby="cta-h" class="pb-20 lg:pb-28">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
+    <div class="reveal relative overflow-hidden rounded-5xl shadow-photo">
+      <img src="images2/web/conference-main.jpg" width="1600" height="1200" loading="lazy" decoding="async"
+           alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover">
+      <div aria-hidden="true" class="absolute inset-0 scrim-ink"></div>
+
+      <div class="relative px-6 py-20 text-center sm:px-12 lg:py-24">
+        <p class="flex items-center justify-center gap-3 text-kicker font-semibold uppercase text-copper-300">
+          <span class="h-px w-9 bg-copper-300/50" aria-hidden="true"></span>
+          Start Today
+          <span class="h-px w-9 bg-copper-300/50" aria-hidden="true"></span>
+        </p>
+        <h2 id="cta-h" class="mx-auto mt-6 max-w-[24rem] font-serif text-h2 font-normal text-linen-50">Your office is waiting.</h2>
+        <p class="mx-auto mt-5 max-w-[34rem] text-lede text-linen-200">
+          Join Harford County's most forward-thinking professional community.
+          Flexible plans, zero long-term commitments, all the amenities.
+        </p>
+        <div class="mt-10 flex flex-wrap justify-center gap-3.5">
+          <a href="#contact" class="inline-flex items-center rounded-full bg-copper px-8 py-4 text-[14.5px] font-semibold tracking-wide text-linen-50 shadow-copper transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-copper-600">Reserve Your Space</a>
+          <a href="tel:4108444400" class="inline-flex items-center gap-2.5 rounded-full border border-linen-50/30 bg-linen-50/10 px-8 py-4 text-[14.5px] font-semibold tracking-wide text-linen-50 backdrop-blur-sm transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-linen-50/20">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Call Us
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1120,126 +1182,221 @@
 
 </main>
 
-<!-- FOOTER -->
-<footer role="contentinfo">
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a class="nav-logo" href="#" aria-label="Think Tank CoWork home">
-          <img src="brand/logo.png" alt="Think Tank CoWork" height="48" style="width:auto;">
+<!-- ════════════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════════════ -->
+<footer role="contentinfo" class="border-t border-linen-300 bg-linen-200/60 pt-16 lg:pt-20">
+  <div class="mx-auto max-w-wide px-6 lg:px-10">
+
+    <div class="grid gap-12 pb-14 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr]">
+      <div>
+        <a href="#" aria-label="Think Tank CoWork home" class="inline-flex">
+          <img src="brand/logo.png" alt="Think Tank CoWork" width="180" height="46" class="h-11 w-auto">
         </a>
-        <p>Harford County's first hi-tech coworking community. Professional workspaces for the modern professional in the heart of Bel Air, Maryland.</p>
-        <div class="socials" aria-label="Social media">
-          <a href="https://www.facebook.com/ThinkTankCoWork" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-          <a href="https://www.linkedin.com/in/think-tank-cowork-b017101b1" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <p class="mt-5 max-w-sm text-[14px] leading-relaxed text-ink-500">
+          Harford County's first hi-tech coworking community. Professional
+          workspaces for the modern professional, in the heart of Bel Air, Maryland.
+        </p>
+        <div aria-label="Social media" class="mt-7 flex gap-2.5">
+          <a href="https://www.facebook.com/ThinkTankCoWork" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+             class="flex h-10 w-10 items-center justify-center rounded-full border border-linen-400/60 bg-linen-50 text-ink-500 transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:border-copper hover:text-copper">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/think-tank-cowork-b017101b1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+             class="flex h-10 w-10 items-center justify-center rounded-full border border-linen-400/60 bg-linen-50 text-ink-500 transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:border-copper hover:text-copper">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
         </div>
       </div>
 
       <div>
-        <div class="footer-col-lbl">Memberships</div>
-        <ul class="footer-links" role="list">
-          <li><a href="#membership" class="footer-link">Dedicated Office</a></li>
-          <li><a href="#membership" class="footer-link">Dedicated Workspace</a></li>
-          <li><a href="#membership" class="footer-link">Unshared Desk</a></li>
-          <li><a href="#membership" class="footer-link">Part-Time Desk</a></li>
-          <li><a href="#contact" class="footer-link">Conference Rooms</a></li>
+        <p class="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-ink-400">Workspaces</p>
+        <ul role="list" class="mt-5 space-y-3">
+          <li><a href="#spaces"   class="text-[14px] text-ink-500 transition-colors hover:text-copper">Dedicated Office</a></li>
+          <li><a href="#spaces"   class="text-[14px] text-ink-500 transition-colors hover:text-copper">Dedicated Workspace</a></li>
+          <li><a href="#spaces"   class="text-[14px] text-ink-500 transition-colors hover:text-copper">Unshared Desk</a></li>
+          <li><a href="#spaces"   class="text-[14px] text-ink-500 transition-colors hover:text-copper">Part-Time Desk</a></li>
+          <li><a href="#meetings" class="text-[14px] text-ink-500 transition-colors hover:text-copper">Conference Rooms</a></li>
+          <li><a href="#gallery"  class="text-[14px] text-ink-500 transition-colors hover:text-copper">Photo Gallery</a></li>
         </ul>
       </div>
 
       <div>
-        <div class="footer-col-lbl">Contact</div>
-        <ul class="footer-links" role="list">
-          <li><a href="tel:4108444400" class="footer-link">410-844-4400</a></li>
-          <li><a href="mailto:jane@thinktankcowork.com" class="footer-link">jane@thinktankcowork.com</a></li>
-          <li><a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer" class="footer-link">16 Bel Air South Pkwy<br>Bel Air, MD 21015</a></li>
+        <p class="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-ink-400">Contact</p>
+        <ul role="list" class="mt-5 space-y-3">
+          <li><a href="tel:4108444400" class="text-[14px] text-ink-500 transition-colors hover:text-copper">410-844-4400</a></li>
+          <li><a href="mailto:jane@thinktankcowork.com" class="text-[14px] text-ink-500 transition-colors hover:text-copper">jane@thinktankcowork.com</a></li>
+          <li><a href="https://maps.google.com/?q=16+Bel+Air+South+Parkway,+Bel+Air,+MD+21015" target="_blank" rel="noopener noreferrer" class="text-[14px] leading-relaxed text-ink-500 transition-colors hover:text-copper">16 Bel Air South Pkwy<br>Bel Air, MD 21015</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-bot">
-      <p>&copy; 2025 Think Tank CoWork. All rights reserved.</p>
-      <div class="footer-bot-links">
-        <a href="#" class="footer-link">Privacy Policy</a>
-        <a href="#" class="footer-link">Terms of Service</a>
+    <div class="flex flex-col items-center justify-between gap-3 border-t border-linen-300 py-7 sm:flex-row sm:gap-8">
+      <p class="text-[12px] text-ink-400">&copy; 2025 Think Tank CoWork. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="text-[12px] text-ink-400 transition-colors hover:text-copper">Privacy Policy</a>
+        <a href="#" class="text-[12px] text-ink-400 transition-colors hover:text-copper">Terms of Service</a>
       </div>
+
+      <!-- Built by Bee & Gold -->
+      <a href="https://beeandgold.com" target="_blank" rel="noopener noreferrer"
+         aria-label="Built by Bee &amp; Gold" class="bee-badge">
+        <svg class="bee-badge-logo" viewBox="0 0 731 519" aria-hidden="true" focusable="false">
+          <g transform="translate(0,519) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+            <path d="M2527 5099 c-23 -13 -47 -62 -47 -94 0 -34 25 -82 49 -95 28 -15 103 -12 125 5 27 21 51 19 135 -10 110 -37 218 -99 341 -196 l112 -88 44 27 c24 15 44 29 44 33 0 23 -220 185 -327 241 -85 45 -234 98 -273 98 -11 0 -24 6 -29 13 -6 6 -22 27 -37 45 -23 28 -32 32 -72 32 -26 0 -55 -5 -65 -11z M4656 5079 c-14 -17 -26 -34 -26 -38 0 -4 -39 -18 -87 -31 -121 -32 -232 -81 -330 -146 -85 -57 -216 -159 -221 -174 -4 -10 67 -60 84 -60 6 0 53 34 105 75 145 117 268 183 403 219 56 14 60 14 84 -5 27 -21 91 -26 123 -9 24 13 49 61 49 95 0 34 -25 82 -49 95 -11 5 -40 10 -64 10 -38 0 -49 -5 -71 -31z M3565 4684 c-49 -31 -136 -85 -192 -121 l-103 -65 0 -201 0 -202 188 -115 c103 -63 194 -114 202 -114 8 0 99 51 203 114 l187 115 -2 204 -3 205 -190 118 c-104 64 -192 117 -195 117 -3 0 -45 -25 -95 -55z m233 -158 l137 -85 -5 -146 -5 -146 -132 -81 -132 -80 -136 83 -137 84 0 145 1 144 113 69 c62 38 122 76 133 83 11 8 21 14 23 14 2 0 65 -38 140 -84z M3118 4417 l-48 -32 0 -196 0 -197 156 -102 c86 -56 162 -104 170 -107 14 -5 104 42 104 55 -1 4 -62 45 -136 92 -75 47 -146 93 -160 103 l-24 18 0 200 c0 109 -3 199 -7 198 -5 0 -29 -15 -55 -32z M4139 4248 l0 -203 -157 -100 c-86 -55 -155 -104 -153 -110 1 -5 22 -21 45 -34 l42 -24 165 105 164 104 3 198 c3 220 8 201 -70 246 l-38 21 -1 -203z M79 4251 c63 -117 743 -1212 764 -1229 7 -6 77 -17 157 -26 264 -28 704 -67 760 -67 42 0 167 34 535 145 264 79 480 144 481 143 2 -2 -203 -167 -428 -345 l-117 -92 -436 -8 -436 -7 138 -105 c75 -58 143 -109 150 -113 7 -4 124 6 259 23 135 18 247 30 250 28 2 -3 -3 -59 -12 -127 l-17 -121 -31 5 c-34 5 -267 30 -384 41 l-73 7 -206 166 c-113 91 -216 174 -229 184 -21 17 -32 17 -126 7 -57 -6 -105 -13 -107 -16 -3 -2 3 -10 11 -17 9 -6 69 -55 134 -108 111 -89 367 -292 418 -331 17 -13 105 -26 391 -57 l368 -40 82 77 c44 42 194 185 333 316 l252 240 0 78 c0 43 -3 78 -6 78 -8 0 -115 -99 -444 -409 -140 -133 -258 -241 -261 -241 -3 0 4 74 16 165 15 120 26 169 37 178 15 11 117 95 508 414 l145 119 3 92 c2 71 0 92 -11 92 -7 0 -107 -29 -222 -66 -116 -36 -374 -115 -575 -175 l-365 -110 -128 7 c-70 3 -126 11 -125 15 2 5 72 97 157 204 l153 195 337 0 c374 0 650 9 629 21 -24 14 -345 44 -913 85 l-70 5 -171 247 c-94 136 -174 252 -178 259 -4 7 23 1 61 -14 37 -14 127 -47 198 -73 72 -26 202 -75 290 -108 88 -33 295 -111 460 -172 165 -61 353 -131 417 -155 64 -24 123 -45 131 -47 16 -3 117 51 117 63 0 3 -26 16 -57 28 -210 82 -1466 551 -1665 622 l-136 49 -612 0 c-593 0 -610 -1 -601 -19z m1318 -253 c62 -90 153 -223 203 -296 51 -73 91 -135 89 -136 -2 -2 -238 -5 -523 -7 l-519 -4 -156 255 c-86 140 -169 276 -184 303 l-28 47 504 0 503 0 111 -162z m291 -555 c-14 -16 -143 -181 -252 -320 -25 -33 -49 -53 -61 -53 -11 0 -110 9 -220 20 -110 11 -208 20 -217 20 -11 0 -50 54 -112 153 -52 84 -98 161 -102 170 -6 15 23 17 352 20 198 1 419 3 493 5 127 2 133 1 119 -15z M5880 4219 c-69 -26 -267 -100 -440 -165 -296 -109 -1085 -406 -1212 -455 -32 -12 -58 -25 -58 -28 0 -3 23 -20 52 -38 l52 -31 71 26 c38 14 392 146 785 293 393 147 716 266 717 265 3 -3 -334 -486 -351 -504 -9 -9 -61 -17 -162 -23 -320 -19 -787 -64 -828 -79 -32 -11 233 -20 614 -20 l357 0 152 -191 c84 -105 155 -197 157 -204 4 -9 -26 -14 -123 -19 l-128 -8 -320 97 c-176 53 -436 132 -579 176 -142 43 -262 79 -267 79 -5 0 -9 -42 -9 -92 l1 -93 301 -245 c166 -135 317 -259 336 -275 33 -30 34 -34 53 -170 10 -77 19 -151 19 -164 0 -27 -21 -9 -435 383 -143 135 -264 246 -268 246 -4 0 -6 -37 -5 -83 l3 -82 333 -313 c318 -299 334 -313 365 -307 18 3 182 21 365 41 l334 35 146 117 c314 249 432 345 437 352 5 8 -23 13 -152 26 l-62 6 -88 -74 c-48 -41 -148 -123 -222 -183 l-134 -109 -246 -27 c-135 -15 -247 -26 -248 -25 -5 5 -34 238 -30 242 3 4 117 -8 252 -26 l247 -32 111 86 c62 47 127 98 146 114 l35 29 -433 6 -433 6 -37 28 c-98 73 -511 406 -508 409 2 2 116 -30 253 -72 799 -244 707 -223 929 -204 205 18 749 71 751 73 11 11 285 448 379 602 67 110 176 288 242 395 66 108 128 210 137 228 l17 32 -623 -1 -623 -1 -125 -49z m1134 -106 c-66 -115 -327 -539 -338 -550 -18 -20 -1049 -5 -1042 14 3 8 61 94 129 191 68 97 156 225 196 285 l71 107 506 0 506 0 -28 -47z m-686 -663 c192 0 272 -3 272 -11 0 -12 -174 -295 -194 -315 -11 -12 -440 -59 -469 -52 -8 2 -76 82 -152 178 -76 96 -145 184 -154 194 -16 19 -11 19 204 13 121 -4 343 -7 493 -7z M3393 3537 l-252 -152 -1 -240 0 -240 248 -147 c136 -81 254 -149 262 -153 9 -3 119 57 270 148 l255 154 3 236 2 235 -27 20 c-67 46 -484 292 -495 292 -7 -1 -127 -69 -265 -153z m472 -94 l195 -118 0 -180 -1 -180 -200 -119 c-164 -98 -204 -118 -218 -109 -10 6 -102 61 -204 123 l-187 111 2 176 3 176 195 118 c107 65 201 118 208 119 7 0 100 -53 207 -117z M3007 2608 l-147 -113 0 -231 0 -231 213 -129 c116 -71 296 -179 399 -240 l187 -112 400 241 401 241 0 231 0 230 -148 113 c-82 61 -151 112 -154 112 -3 0 -109 -61 -234 -136 -126 -75 -238 -141 -249 -146 -17 -8 -62 16 -257 131 -130 78 -242 143 -250 146 -9 4 -74 -39 -161 -107z m325 -121 c84 -51 192 -116 239 -144 l87 -51 242 144 c133 79 245 144 248 144 3 0 47 -32 99 -70 l93 -71 -2 -171 -3 -172 -338 -202 -338 -202 -327 195 c-180 107 -333 199 -339 205 -10 8 -13 56 -13 182 l1 171 91 68 c51 37 95 67 99 67 4 0 76 -42 161 -93z M2860 1505 l0 -345 68 -43 c37 -24 135 -84 217 -134 83 -50 232 -140 333 -201 l183 -111 372 226 c205 124 384 234 400 245 l27 19 0 345 c0 189 -3 344 -6 344 -3 0 -30 -15 -60 -32 l-54 -33 0 -285 0 -285 -313 -188 c-171 -103 -324 -195 -338 -204 -26 -16 -29 -14 -315 157 -159 95 -313 188 -341 206 l-53 34 0 283 0 282 -54 33 c-30 17 -57 32 -60 32 -3 0 -6 -155 -6 -345z M3130 1645 l0 -65 53 -34 c148 -94 468 -286 477 -286 5 0 40 19 77 43 38 24 152 94 256 156 l187 113 0 69 c0 38 -3 69 -6 69 -3 0 -18 -8 -32 -19 -41 -28 -458 -280 -475 -286 -8 -4 -122 59 -270 149 -140 86 -258 156 -261 156 -3 0 -6 -29 -6 -65z M3140 812 l0 -57 253 -345 c139 -190 260 -345 267 -345 7 0 111 133 229 295 119 163 233 317 254 344 33 44 37 55 37 107 0 33 -3 59 -6 59 -3 0 -39 -23 -79 -50 -60 -42 -83 -67 -137 -148 -125 -186 -289 -417 -298 -417 -10 0 -82 100 -256 356 -104 152 -118 169 -183 212 -39 26 -73 47 -76 47 -3 0 -5 -26 -5 -58z"/>
+          </g>
+        </svg>
+        <span class="bee-badge-tip" aria-hidden="true">Built by<span class="bee-badge-tip-name">Bee &amp; Gold<span class="bee-badge-spark bee-badge-spark-1">&#10022;</span><span class="bee-badge-spark bee-badge-spark-2">&#10022;</span><span class="bee-badge-spark bee-badge-spark-3">&#10022;</span><span class="bee-badge-spark bee-badge-spark-4">&#10022;</span></span></span>
+      </a>
     </div>
   </div>
 </footer>
 
+<!-- ════════════════════════════════════════════════════════════════
+     LIGHTBOX
+     ════════════════════════════════════════════════════════════════ -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
+  <img id="lbImg" alt="">
+  <p id="lbCaption"></p>
+  <button id="lbClose" class="lb-btn" aria-label="Close photo viewer">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <button id="lbPrev" class="lb-btn" aria-label="Previous photo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button id="lbNext" class="lb-btn" aria-label="Next photo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
 <script>
-  // Nav scroll
+  /* ── Nav: condense on scroll ──
+     Separate add/remove thresholds, so a scroll that settles near the boundary
+     (trackpad momentum, rubber-band, a smooth-scroll landing) cannot retrigger
+     the transition over and over. Class writes are capped at one per frame. */
   const nav = document.getElementById('nav');
+  const NAV_ON = 56, NAV_OFF = 24;
+  let navQueued = false;
+
+  function syncNav() {
+    navQueued = false;
+    const y = window.scrollY;
+    if (y > NAV_ON)       nav.classList.add('scrolled');
+    else if (y < NAV_OFF) nav.classList.remove('scrolled');
+  }
+
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 48);
+    if (navQueued) return;
+    navQueued = true;
+    requestAnimationFrame(syncNav);
   }, { passive: true });
+  syncNav();
 
-  // Mobile menu
-  const ham = document.getElementById('ham');
-  const mob = document.getElementById('mobMenu');
-  ham.addEventListener('click', () => {
-    const open = mob.classList.toggle('open');
-    ham.classList.toggle('open', open);
-    ham.setAttribute('aria-expanded', open);
-    mob.setAttribute('aria-hidden', !open);
-  });
-  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    mob.classList.remove('open');
-    ham.classList.remove('open');
-    ham.setAttribute('aria-expanded', 'false');
-    mob.setAttribute('aria-hidden', 'true');
-  }));
+  /* ── Mobile menu ── */
+  const ham  = document.getElementById('ham');
+  const mob  = document.getElementById('mobMenu');
+  const bars = ham.querySelectorAll('span');
 
-  // Scroll reveal
+  function setMenu(open) {
+    mob.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', String(open));
+    mob.setAttribute('aria-hidden', String(!open));
+    ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    bars[0].style.transform = open ? 'translateY(6.5px) rotate(45deg)'   : '';
+    bars[1].style.opacity   = open ? '0' : '';
+    bars[2].style.transform = open ? 'translateY(-6.5px) rotate(-45deg)' : '';
+  }
+
+  ham.addEventListener('click', () => setMenu(!mob.classList.contains('open')));
+  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  /* ── Scroll reveal ── */
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Smooth scroll for anchor links
+  /* ── Smooth scroll, offset for the fixed nav ── */
+  const navOffset = () => {
+    const css = getComputedStyle(document.documentElement);
+    return parseInt(css.getPropertyValue('--banner-h')) + parseInt(css.getPropertyValue('--nav-h')) + 16;
+  };
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - navOffset(), behavior: 'smooth' });
     });
   });
 
-  // Ken Burns hero slideshow
-  const slides = document.querySelectorAll('.hero-slide');
-  const kbNames = ['kb0', 'kb1', 'kb2'];
-  let cur = 2;
+  /* ══════════════════════════════════════════════════════════════
+     LIGHTBOX — gallery tiles open a larger view
+     ══════════════════════════════════════════════════════════════ */
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbCap   = document.getElementById('lbCaption');
+  const tiles   = Array.from(document.querySelectorAll('#gallery-grid [data-lb-src]'));
+  let lbIndex   = 0;
+  let lastFocus = null;
 
-  function showSlide(idx) {
-    const slide = slides[idx];
-    const inner = slide.querySelector('.hero-slide-inner');
-    const kb = kbNames[parseInt(slide.dataset.kb)];
-    // Reset animation on inner without a reflow
-    inner.style.animation = 'none';
-    requestAnimationFrame(() => {
-      inner.style.animation = `${kb} 10s ease-out forwards`;
-      slide.classList.add('active');
-    });
+  function showPhoto(i) {
+    lbIndex = (i + tiles.length) % tiles.length;
+    const tile = tiles[lbIndex];
+    lbImg.src = tile.dataset.lbSrc;
+    lbImg.alt = tile.querySelector('img')?.alt || '';
+    lbCap.textContent = `${tile.dataset.lbCap || ''}  ·  ${lbIndex + 1} / ${tiles.length}`;
   }
 
-  function nextSlide() {
-    const outgoing = slides[cur];
-    outgoing.classList.remove('active');
-    // Let inner keep animating through the 2s fade-out, then clean up
-    const outInner = outgoing.querySelector('.hero-slide-inner');
-    setTimeout(() => { outInner.style.animation = 'none'; }, 2200);
-    cur = (cur + 1) % slides.length;
-    showSlide(cur);
+  function openLightbox(i) {
+    lastFocus = document.activeElement;
+    showPhoto(i);
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lbClose').focus();
   }
 
-  showSlide(cur);
-  setInterval(nextSlide, 6500);
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lbImg.removeAttribute('src');
+    if (lastFocus) lastFocus.focus();
+  }
 
-  // Form
-  const form   = document.getElementById('theForm');
-  const body   = document.getElementById('formBody');
-  const succ   = document.getElementById('successState');
-  const sbtn   = document.getElementById('submitBtn');
-  const slbl   = document.getElementById('btnLabel');
-  const sico   = document.getElementById('btnIcon');
+  tiles.forEach((tile, i) => tile.addEventListener('click', () => openLightbox(i)));
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', () => showPhoto(lbIndex - 1));
+  document.getElementById('lbNext').addEventListener('click', () => showPhoto(lbIndex + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+
+  document.addEventListener('keydown', e => {
+    if (mob.classList.contains('open') && e.key === 'Escape') { setMenu(false); ham.focus(); return; }
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  showPhoto(lbIndex - 1);
+    if (e.key === 'ArrowRight') showPhoto(lbIndex + 1);
+    /* Keep focus inside the dialog */
+    if (e.key === 'Tab') {
+      const f = lb.querySelectorAll('button');
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ── Inquiry form (demo: swap in a real endpoint, e.g. Formspree) ── */
+  const form = document.getElementById('theForm');
+  const body = document.getElementById('formBody');
+  const succ = document.getElementById('successState');
+  const sbtn = document.getElementById('submitBtn');
+  const slbl = document.getElementById('btnLabel');
+  const sico = document.getElementById('btnIcon');
 
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -1247,9 +1404,8 @@
 
     sbtn.disabled = true;
     slbl.textContent = 'Sending…';
-    sico.innerHTML = '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="28" stroke-dashoffset="14" class="spin-icon" style="animation:spin 0.9s linear infinite;transform-origin:50% 50%;"/>';
+    sico.innerHTML = '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="28" stroke-dashoffset="14" class="spin-icon"/>';
 
-    // Replace with real form endpoint (e.g. Formspree: action="https://formspree.io/f/YOUR_ID")
     setTimeout(() => {
       body.style.display = 'none';
       succ.classList.add('show');
